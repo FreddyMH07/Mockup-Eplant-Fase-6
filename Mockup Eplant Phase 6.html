@@ -1,0 +1,1031 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phase 6 Barcode TPH Mockup</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+      :root {
+        --bg: #f2f3f5;
+        --bg-2: #e9ebee;
+        --ink: #1d1f22;
+        --muted: #6b7076;
+        --brand: #f2a900;
+        --brand-2: #f08b00;
+        --accent: #2ea36a;
+        --accent-2: #1f7e52;
+        --card: #ffffff;
+        --line: #e1e3e6;
+        --shadow: 0 14px 34px rgba(29, 31, 34, 0.12);
+        --chip: #fef3d5;
+        --chip-text: #9c6b00;
+        --dark: #2b2f33;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Space Grotesk", "Sora", system-ui, sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(1200px 600px at 10% -10%, #ffffff 0%, transparent 60%),
+          radial-gradient(1000px 500px at 90% 0%, #f7f8fa 0%, transparent 60%),
+          linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      }
+
+      .page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+
+      header {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 32px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 18px;
+      }
+
+      h1 {
+        margin: 0;
+        font-family: "Sora", "Space Grotesk", sans-serif;
+        font-size: 34px;
+        letter-spacing: -0.5px;
+      }
+
+      .subtitle {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid var(--line);
+        background: #fff3e8;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+
+      section {
+        margin-top: 36px;
+      }
+
+      .section-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .section-title h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .grid.mobile {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+
+      .grid.web {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+
+      .grid.mobile-wide {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+        animation: rise 700ms ease forwards;
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: -20% auto auto -20%;
+        width: 140px;
+        height: 140px;
+        background: radial-gradient(circle, rgba(26, 122, 108, 0.15), transparent 60%);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .screen {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: #fff;
+        padding: 12px;
+      }
+
+      .device {
+        border-radius: 22px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        background: #fff;
+      }
+
+      .device-header {
+        background: var(--dark);
+        color: #fff;
+        padding: 16px 14px 18px;
+        border-bottom-left-radius: 24px;
+        border-bottom-right-radius: 24px;
+      }
+
+      .brand-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .logo-mark {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+      }
+
+      .logo-dot {
+        width: 30px;
+        height: 30px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--brand), var(--accent));
+        display: grid;
+        place-items: center;
+        color: #fff;
+        font-size: 12px;
+      }
+
+      .device-body {
+        padding: 16px 14px 10px;
+        background: #f7f8fa;
+      }
+
+      .welcome {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .welcome-sub {
+        font-size: 12px;
+        color: #c9cdd2;
+      }
+
+      .screen-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+
+      .screen-title .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--brand);
+      }
+
+      .screen h3 {
+        margin: 0 0 10px;
+        font-size: 14px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+
+      .bar {
+        height: 10px;
+        border-radius: 8px;
+        background: linear-gradient(90deg, var(--brand), var(--accent));
+        opacity: 0.8;
+        margin-bottom: 12px;
+      }
+
+      .row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .field {
+        background: #f8f2ea;
+        border: 1px dashed var(--line);
+        border-radius: 10px;
+        padding: 8px;
+        margin-bottom: 8px;
+        font-size: 12px;
+      }
+
+      .app-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+
+      .app-title {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--chip);
+        color: var(--chip-text);
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 600;
+      }
+
+      .tag {
+        display: inline-block;
+        padding: 4px 8px;
+        border-radius: 8px;
+        background: #e7f2ef;
+        color: var(--brand);
+        font-weight: 600;
+        font-size: 11px;
+      }
+
+      .btn-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .btn {
+        background: var(--brand);
+        color: #fff;
+        border-radius: 10px;
+        padding: 8px 10px;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      .btn.alt {
+        background: #fff2e8;
+        color: var(--accent);
+        border: 1px solid #ffd7c3;
+      }
+
+      .list {
+        display: grid;
+        gap: 6px;
+      }
+
+      .list-item {
+        background: #f7efe6;
+        border-radius: 10px;
+        padding: 8px;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .module-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .home-summary {
+        background: #ffffff;
+        border: 1px solid #e7e9ed;
+        border-radius: 12px;
+        padding: 10px;
+        margin-bottom: 10px;
+        display: grid;
+        gap: 6px;
+      }
+
+      .home-summary .row {
+        margin: 0;
+        font-size: 11px;
+      }
+
+      .home-kpi {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+
+      .home-kpi .stat-card {
+        padding: 8px;
+        text-align: center;
+      }
+
+      .module-card {
+        background: #fff;
+        border: 1px solid #e7e9ed;
+        border-radius: 12px;
+        padding: 8px;
+        min-height: 64px;
+        display: grid;
+        gap: 6px;
+        box-shadow: 0 8px 18px rgba(29, 31, 34, 0.08);
+        position: relative;
+      }
+
+      .notify-badge {
+        position: absolute;
+        top: 6px;
+        right: 6px;
+        background: #ff4b3e;
+        color: #fff;
+        font-size: 9px;
+        font-weight: 700;
+        padding: 2px 5px;
+        border-radius: 999px;
+      }
+
+      .module-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        display: grid;
+        place-items: center;
+      }
+
+      .t-orange { background: #f9c27a; }
+      .t-blue { background: #9dc7f0; }
+      .t-yellow { background: #f4d37e; }
+      .t-teal { background: #9bd3d0; }
+      .t-purple { background: #c7b1f1; }
+      .t-pink { background: #f3b5c3; }
+      .t-green { background: #b6e0b8; }
+      .t-sand { background: #f3d8a4; }
+      .t-slate { background: #c7ced6; }
+      .t-rose { background: #f0b3a1; }
+      .t-amber { background: #f0c36d; }
+      .t-mint { background: #a7e0c1; }
+
+      .module-label {
+        font-size: 10px;
+        line-height: 1.2;
+        color: var(--muted);
+      }
+
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .stat-row.primary {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat-card {
+        background: #f7efe6;
+        border-radius: 12px;
+        padding: 8px;
+        border: 1px solid #eadcd0;
+      }
+
+      .stat-card.good {
+        background: #e8f5e9;
+        border-color: #c8e6c9;
+      }
+
+      .stat-card.warn {
+        background: #fff8e1;
+        border-color: #ffecb3;
+      }
+
+      .stat-card.bad {
+        background: #ffebee;
+        border-color: #ffcdd2;
+      }
+
+      .stat-label {
+        font-size: 10px;
+        color: var(--muted);
+      }
+
+      .stat-value {
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin: 10px 0 12px;
+      }
+
+      .quick-action {
+        background: #ffffff;
+        border: 1px solid #e7e9ed;
+        border-radius: 12px;
+        padding: 8px;
+        font-size: 11px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 6px 16px rgba(29, 31, 34, 0.08);
+      }
+
+      .quick-action span {
+        color: var(--muted);
+        font-weight: 500;
+        font-size: 10px;
+      }
+
+      .mini-chart {
+        background: #ffffff;
+        border: 1px solid #e7e9ed;
+        border-radius: 12px;
+        padding: 8px;
+        margin: 8px 0 10px;
+      }
+
+      .mini-bars {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 6px;
+        align-items: end;
+        height: 60px;
+        margin-top: 6px;
+      }
+
+      .mini-bars span {
+        display: block;
+        background: linear-gradient(180deg, var(--brand), var(--brand-2));
+        border-radius: 6px 6px 2px 2px;
+      }
+
+      .restan-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      .restan-card {
+        background: #fff7ef;
+        border: 1px solid #f0dcc7;
+        border-radius: 12px;
+        padding: 8px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .restan-card strong {
+        display: block;
+        font-size: 14px;
+        color: var(--ink);
+      }
+
+      .attach-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin: 8px 0;
+      }
+
+      .attach {
+        border: 1px dashed #d6d9de;
+        border-radius: 12px;
+        padding: 10px;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .attach-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        background: #f1f3f6;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        color: var(--brand-2);
+      }
+
+      .chart-bar {
+        height: 8px;
+        border-radius: 10px;
+        background: #efe6dd;
+        overflow: hidden;
+        margin-top: 6px;
+      }
+
+      .chart-bar span {
+        display: block;
+        height: 100%;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      }
+
+      .filter-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+        margin-bottom: 10px;
+      }
+
+      .filter-pill {
+        background: #ffffff;
+        border: 1px solid #e7e9ed;
+        border-radius: 10px;
+        padding: 8px;
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .chart-card {
+        background: #ffffff;
+        border: 1px solid #e7e9ed;
+        border-radius: 12px;
+        padding: 10px;
+        margin-bottom: 8px;
+      }
+
+      .chart-title {
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .legend {
+        display: flex;
+        gap: 8px;
+        font-size: 10px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+
+      .legend span::before {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 3px;
+        margin-right: 4px;
+        vertical-align: middle;
+      }
+
+      .legend .a::before { background: #f2a900; }
+      .legend .b::before { background: #4aa3ff; }
+      .legend .c::before { background: #8bc34a; }
+      .legend .d::before { background: #e57373; }
+
+      .profile-list {
+        display: grid;
+        gap: 6px;
+      }
+
+      .profile-item {
+        background: #f9f1e9;
+        border: 1px solid #eadcd0;
+        border-radius: 10px;
+        padding: 6px 8px;
+        font-size: 11px;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .nav {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+        margin-top: 8px;
+      }
+
+      .nav span.barcode {
+        background: #ffe6b8;
+        color: #8a5b00;
+        font-weight: 700;
+      }
+
+      .nav span {
+        background: #f1f3f6;
+        border-radius: 8px;
+        font-size: 10px;
+        text-align: center;
+        padding: 6px 0;
+        color: var(--muted);
+      }
+
+      .nav span.active {
+        background: #fff3d6;
+        color: #9c6b00;
+        font-weight: 600;
+      }
+
+      .badge {
+        background: #ffe9d6;
+        color: #b45b36;
+        padding: 2px 6px;
+        border-radius: 6px;
+        font-size: 11px;
+      }
+
+      .hero-note {
+        font-size: 13px;
+        color: var(--muted);
+        max-width: 560px;
+      }
+
+      @keyframes rise {
+        from {
+          transform: translateY(12px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .stagger > .card:nth-child(1) { animation-delay: 0ms; }
+      .stagger > .card:nth-child(2) { animation-delay: 80ms; }
+      .stagger > .card:nth-child(3) { animation-delay: 160ms; }
+      .stagger > .card:nth-child(4) { animation-delay: 240ms; }
+
+      @media (max-width: 760px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div>
+          <h1>Phase 6 Mockup: Barcode TPH (Mobile)</h1>
+          <p class="subtitle">High-fi mobile-only draft aligned to legacy UI for stakeholder review</p>
+        </div>
+        <div class="pill">Mobile only • Offline first • BPBKS + SPB integration</div>
+      </header>
+
+      <section>
+        <div class="section-title">
+          <h2>Mobile Core (Phase 6)</h2>
+          <span class="hero-note">Lebih detail dan profesional: Login, Home, Dashboard, Profil, dan Barcode TPH.</span>
+        </div>
+        <div class="grid mobile-wide stagger">
+          <div class="card">
+            <div class="device">
+              <div class="device-header" style="text-align:center;">
+                <div class="logo-mark" style="justify-content:center;">
+                  <span class="logo-dot">SAG</span>
+                  Sahabat Agro Group
+                </div>
+                <div class="welcome" style="margin-top:10px;">Masuk</div>
+                <div class="welcome-sub">Masukan NIP dan kata sandi</div>
+              </div>
+              <div class="device-body">
+                <div class="field">NIP</div>
+                <div class="field">Kata sandi</div>
+                <div class="row"><span>Ingat saya</span><span>Lupa kata sandi?</span></div>
+                <div class="btn">Masuk</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="device">
+              <div class="device-header">
+                <div class="brand-row">
+                  <div class="logo-mark"><span class="logo-dot">SAG</span> E-Plant</div>
+                  <div class="chip">Online • 5 notif</div>
+                </div>
+                <div class="welcome">Super Admin</div>
+                <div class="welcome-sub">Selamat datang di E-Plantation</div>
+              </div>
+              <div class="device-body">
+                <div class="home-summary">
+                  <div class="row"><span>Organisasi</span><strong>PT Hasil Sawit Bina Sejahtera</strong></div>
+                  <div class="row"><span>Divisi</span><strong>Inti</strong></div>
+                  <div class="row"><span>Tanggal</span><strong>19 Feb 2026</strong></div>
+                </div>
+                <div class="home-kpi">
+                  <div class="stat-card good"><div class="stat-label">Tugas</div><div class="stat-value">12</div></div>
+                  <div class="stat-card warn"><div class="stat-label">Restan</div><div class="stat-value">6</div></div>
+                  <div class="stat-card good"><div class="stat-label">Sync</div><div class="stat-value">94%</div></div>
+                </div>
+                <div class="module-grid">
+                  <div class="module-card"><div class="module-icon t-orange">MD</div><div class="module-label">Master Data</div></div>
+                  <div class="module-card"><div class="module-icon t-blue">RK</div><div class="module-label">Rencana</div></div>
+                  <div class="module-card"><span class="notify-badge">3</span><div class="module-icon t-yellow">AB</div><div class="module-label">Absensi</div></div>
+                  <div class="module-card"><span class="notify-badge">2</span><div class="module-icon t-teal">PN</div><div class="module-label">Panen</div></div>
+                  <div class="module-card"><div class="module-icon t-purple">RW</div><div class="module-label">Rawat</div></div>
+                  <div class="module-card"><div class="module-icon t-pink">LP</div><div class="module-label">Laporan</div></div>
+                  <div class="module-card"><div class="module-icon t-blue">BA</div><div class="module-label">Berita Acara</div></div>
+                  <div class="module-card"><span class="notify-badge">4</span><div class="module-icon t-green">PS</div><div class="module-label">Persetujuan</div></div>
+                </div>
+                <div class="quick-actions">
+                  <div class="quick-action">Scan TPH <span>Barcode</span></div>
+                  <div class="quick-action">Absensi <span>Hari ini</span></div>
+                  <div class="quick-action">Panen <span>BKM</span></div>
+                  <div class="quick-action">Laporan <span>Ringkas</span></div>
+                </div>
+                <div class="nav">
+                  <span class="active">Home</span>
+                  <span>Dashboard</span>
+                  <span class="barcode">Barcode</span>
+                  <span>Profil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="device">
+              <div class="device-header">
+                <div class="brand-row">
+                  <div class="logo-mark"><span class="logo-dot">SAG</span> Dashboard</div>
+                  <div class="chip">Feb 2026</div>
+                </div>
+                <div class="welcome">Dashboard</div>
+                <div class="welcome-sub">Ringkasan chart sesuai modul mobile</div>
+              </div>
+              <div class="device-body">
+                <div class="filter-row">
+                  <div class="filter-pill">Organisasi</div>
+                  <div class="filter-pill">Divisi</div>
+                  <div class="filter-pill">Tahun</div>
+                  <div class="filter-pill">Bulan</div>
+                </div>
+                <div class="stat-row primary">
+                  <div class="stat-card warn"><div class="stat-label">Budget Sensus</div><div class="stat-value">638.831 Kg</div></div>
+                  <div class="stat-card good"><div class="stat-label">Realisasi Kebun</div><div class="stat-value">1.165.200 Kg</div></div>
+                  <div class="stat-card good"><div class="stat-label">Realisasi PKS</div><div class="stat-value">1.102.450 Kg</div></div>
+                  <div class="stat-card bad"><div class="stat-label">ACV Prod (%)</div><div class="stat-value">182.40%</div></div>
+                </div>
+                <div class="chart-card">
+                  <div class="chart-title">Total Produksi</div>
+                  <div class="legend"><span class="a">Tonase Kebun (Kg)</span><span class="b">Tonase PKS (Kg)</span></div>
+                  <div class="mini-bars">
+                    <span style="height: 32px;"></span>
+                    <span style="height: 50px;"></span>
+                    <span style="height: 28px;"></span>
+                    <span style="height: 56px;"></span>
+                    <span style="height: 38px;"></span>
+                    <span style="height: 52px;"></span>
+                    <span style="height: 44px;"></span>
+                  </div>
+                </div>
+                <div class="chart-card">
+                  <div class="chart-title">Yield</div>
+                  <div class="legend"><span class="a">Budget Yield</span><span class="b">Real Yield</span></div>
+                  <div class="mini-bars">
+                    <span style="height: 42px;"></span>
+                    <span style="height: 36px;"></span>
+                    <span style="height: 48px;"></span>
+                    <span style="height: 30px;"></span>
+                    <span style="height: 54px;"></span>
+                    <span style="height: 34px;"></span>
+                    <span style="height: 46px;"></span>
+                  </div>
+                </div>
+                <div class="chart-card">
+                  <div class="chart-title">AKP</div>
+                  <div class="legend"><span class="c">Rencana (%)</span><span class="d">Realisasi (%)</span></div>
+                  <div class="mini-bars">
+                    <span style="height: 28px;"></span>
+                    <span style="height: 40px;"></span>
+                    <span style="height: 22px;"></span>
+                    <span style="height: 46px;"></span>
+                    <span style="height: 30px;"></span>
+                    <span style="height: 50px;"></span>
+                    <span style="height: 34px;"></span>
+                  </div>
+                </div>
+                <div class="chart-card">
+                  <div class="chart-title">Refraksi</div>
+                  <div class="legend"><span class="a">Kebun (Kg, %)</span><span class="b">PKS (Kg, %)</span></div>
+                  <div class="mini-bars">
+                    <span style="height: 24px;"></span>
+                    <span style="height: 32px;"></span>
+                    <span style="height: 18px;"></span>
+                    <span style="height: 36px;"></span>
+                    <span style="height: 26px;"></span>
+                    <span style="height: 40px;"></span>
+                    <span style="height: 28px;"></span>
+                  </div>
+                </div>
+                <div class="chart-card">
+                  <div class="chart-title">BPBKS per Tanggal</div>
+                  <div class="legend">
+                    <span class="a">Matang (Pcs)</span>
+                    <span class="b">Mentah (Pcs)</span>
+                    <span class="c">Lewat Matang (Pcs)</span>
+                    <span class="d">Busuk (Pcs)</span>
+                  </div>
+                  <div class="mini-bars">
+                    <span style="height: 30px;"></span>
+                    <span style="height: 44px;"></span>
+                    <span style="height: 20px;"></span>
+                    <span style="height: 38px;"></span>
+                    <span style="height: 26px;"></span>
+                    <span style="height: 48px;"></span>
+                    <span style="height: 22px;"></span>
+                  </div>
+                </div>
+                <div class="chart-card">
+                  <div class="chart-title">BPBKS per Blok</div>
+                  <div class="legend"><span class="a">Matang</span><span class="b">Mentah</span><span class="c">Lewat Matang</span><span class="d">Busuk</span></div>
+                  <div class="mini-bars">
+                    <span style="height: 26px;"></span>
+                    <span style="height: 34px;"></span>
+                    <span style="height: 18px;"></span>
+                    <span style="height: 42px;"></span>
+                    <span style="height: 24px;"></span>
+                    <span style="height: 46px;"></span>
+                    <span style="height: 28px;"></span>
+                  </div>
+                </div>
+                <div class="nav">
+                  <span>Home</span>
+                  <span class="active">Dashboard</span>
+                  <span class="barcode">Barcode</span>
+                  <span>Profil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="device">
+              <div class="device-header">
+                <div class="brand-row">
+                  <div class="logo-mark"><span class="logo-dot">SAG</span> Profil</div>
+                  <div class="chip">R&D Agronomi</div>
+                </div>
+                <div class="welcome">Super Admin</div>
+                <div class="welcome-sub">Informasi Umum</div>
+              </div>
+              <div class="device-body">
+                <div class="profile-list">
+                  <div class="profile-item"><span>NIP</span><strong>01250618750024</strong></div>
+                  <div class="profile-item"><span>Alamat</span><strong>Jakarta</strong></div>
+                  <div class="profile-item"><span>No HP</span><strong>081333767281</strong></div>
+                  <div class="profile-item"><span>Jenis Kelamin</span><strong>Laki-laki</strong></div>
+                  <div class="profile-item"><span>Jenis Karyawan</span><strong>Kantor</strong></div>
+                  <div class="profile-item"><span>Email</span><strong>staf.agronomi@sahabatagro.co.id</strong></div>
+                  <div class="profile-item"><span>Penanggung Jawab</span><strong>Asisten Divisi</strong></div>
+                  <div class="profile-item"><span>Lingkup Kerja</span><strong>Divisi Inti</strong></div>
+                </div>
+                <div class="btn-row">
+                  <div class="btn alt">Pengaturan</div>
+                  <div class="btn">Keluar</div>
+                </div>
+                <div class="nav">
+                  <span>Home</span>
+                  <span>Dashboard</span>
+                  <span class="barcode">Barcode</span>
+                  <span class="active">Profil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-title">
+          <h2>Mobile Barcode Flow</h2>
+          <span class="hero-note">Scan TPH, capture photos, save offline, and sync to BPBKS and SPB.</span>
+        </div>
+        <div class="grid mobile stagger">
+          <div class="card">
+            <div class="screen">
+              <h3>Scan</h3>
+              <div class="bar"></div>
+              <div class="field" style="height: 120px; text-align: center;">QR View</div>
+              <div class="row"><span>Last scan</span><strong>PA21i010</strong></div>
+              <div class="row"><span>Status</span><span class="tag">Offline queued 3</span></div>
+              <div class="btn-row">
+                <div class="btn">Scan</div>
+                <div class="btn alt">Queue</div>
+              </div>
+              <div class="nav">
+                <span>Home</span>
+                <span>Dashboard</span>
+                <span class="barcode active">Barcode</span>
+                <span>Profil</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="screen">
+              <h3>Review & Input</h3>
+              <div class="row"><span>Blok</span><strong>A21i</strong></div>
+              <div class="row"><span>TPH</span><strong>010</strong></div>
+              <div class="row"><span>Tahun Tanam</span><strong>2015</strong></div>
+              <div class="field">Total JJG [ 120 ]</div>
+              <div class="field">Brondolan [ 8 ]</div>
+              <div class="field">Janjang Matang [ 60 ]</div>
+              <div class="field">Janjang Mentah [ 10 ]</div>
+              <div class="field">Janjang Lewat Matang [ 4 ]</div>
+              <div class="field">Janjang Busuk [ 1 ]</div>
+              <div class="attach-row">
+                <div class="attach"><div class="attach-icon">+</div> Foto Krani Panen</div>
+                <div class="attach"><div class="attach-icon">+</div> Foto Buah</div>
+              </div>
+              <div class="btn-row">
+                <div class="btn alt">Save Offline</div>
+                <div class="btn">Submit</div>
+              </div>
+              <div class="nav">
+                <span>Home</span>
+                <span>Dashboard</span>
+                <span class="barcode active">Barcode</span>
+                <span>Profil</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="screen">
+              <h3>Queue / Sync</h3>
+              <div class="list">
+                <div class="list-item">PA21i010 • JJG 120 <span class="badge">Pending</span></div>
+                <div class="list-item">PA21i011 • JJG 98 <span class="badge">Pending</span></div>
+                <div class="list-item">PA21i012 • JJG 75 <span class="badge">Failed</span></div>
+              </div>
+              <div class="btn-row">
+                <div class="btn">Sync All</div>
+                <div class="btn alt">Retry Failed</div>
+              </div>
+              <div class="nav">
+                <span>Home</span>
+                <span>Dashboard</span>
+                <span class="barcode active">Barcode</span>
+                <span>Profil</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="screen">
+              <h3>Tracking</h3>
+              <div class="field">Filter: Kebun, Divisi, Mandor, Status</div>
+              <div class="list">
+                <div class="list-item">PA21i010 • Synced <span class="badge">BPBKS#001</span></div>
+                <div class="list-item">PA21i011 • Restan <span class="badge">Waiting SPB</span></div>
+                <div class="list-item">PA21i012 • Pending <span class="badge">No signal</span></div>
+              </div>
+              <div class="nav">
+                <span>Home</span>
+                <span>Dashboard</span>
+                <span class="barcode active">Barcode</span>
+                <span>Profil</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </body>
+</html>
