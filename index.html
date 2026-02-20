@@ -251,6 +251,26 @@
     }
     .flow-step b{ color: var(--ink); }
     .flow-arrow{ color:#98A2B3; font-size: 12px; }
+    .auth-logo{
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: #fff url('./assets/logo-PTSAG.png') center/76% no-repeat;
+      margin: 2px auto 8px;
+    }
+    .auth-sub{
+      text-align:center;
+      font-size: 11px;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+    .auth-meta{
+      margin-top: 8px;
+      font-size: 10px;
+      color: var(--muted);
+      text-align:center;
+    }
 
     /* ====== App chrome ====== */
     .app-header{
@@ -753,8 +773,8 @@
 
     <div class="summary-bar">
       <div class="summary-item"><strong>1 App Lengkap</strong><span>Gambaran penuh aplikasi operasional lapangan.</span></div>
-      <div class="summary-item"><strong>6 Pecahan Kunci</strong><span>Fokus per proses untuk review cepat.</span></div>
-      <div class="summary-item"><strong>1 Alur End-to-End</strong><span>Panen → Validasi → Sync → Monitoring → Verifikasi.</span></div>
+      <div class="summary-item"><strong>7 Pecahan Kunci</strong><span>Termasuk Login + proses operasional utama.</span></div>
+      <div class="summary-item"><strong>1 Alur End-to-End</strong><span>Login → Panen → Validasi → Sync → Monitoring → Verifikasi.</span></div>
     </div>
 
     <div class="grid">
@@ -779,7 +799,30 @@
 
           <div class="content">
             <!-- ===== Screens ===== -->
-            <div class="screen active" id="home">
+            <div class="screen active" id="login">
+              <div class="card">
+                <div class="auth-logo" aria-hidden="true"></div>
+                <div class="title-row" style="justify-content:center; margin-bottom:6px;"><h2>Login E-Plant</h2></div>
+                <p class="auth-sub">Akses role-based • online & offline (cache)</p>
+                <div class="field"><span>NIP / Username</span><span class="v" id="loginUserText">01250618750024</span></div>
+                <div class="field"><span>Password</span><span class="v">••••••••</span></div>
+                <div class="field"><span>Kebun</span><span class="v" id="loginKebunText">PT HSBS</span></div>
+                <div class="field"><span>Role</span><span class="v" id="loginRoleText">Krani Panen</span></div>
+                <div class="field"><span>Mode Login</span><span class="v"><span id="loginModeBadge" class="status ok">Online</span></span></div>
+                <div class="field"><span>Cache Offline</span><span class="v" id="loginCacheText">Aktif</span></div>
+                <div class="field"><span>Akun Terakhir</span><span class="v" id="lastLoginUser">-</span></div>
+                <div class="field"><span>Terakhir Login</span><span class="v" id="lastLoginTime">-</span></div>
+                <div class="field"><span>Mode Terakhir</span><span class="v"><span id="lastLoginMode" class="status wait">-</span></span></div>
+                <div class="btns">
+                  <div class="btn" onclick="loginApp()">Masuk</div>
+                  <div class="btn alt" onclick="toggleLoginCache()">Toggle Cache</div>
+                </div>
+                <div class="btn alt" style="margin-top:8px;" onclick="switchAccount()">Ganti Akun</div>
+                <div class="auth-meta">Saat offline, login hanya bisa jika cache akun aktif.</div>
+              </div>
+            </div>
+
+            <div class="screen" id="home">
               <div class="card">
                 <div class="title-row">
                   <h2>Ringkasan Hari Ini</h2>
@@ -1271,15 +1314,37 @@
       <!-- ===== Mockup pecahan (di luar app utama) ===== -->
       <div class="split-title"><strong>Pecahan Mockup (Visual)</strong> • Ringkas, visual-dominan, siap untuk presentasi manajemen.</div>
       <div class="flow-legend" aria-label="alur end-to-end mockup">
-        <div class="flow-step"><b>1</b> Home & Modul</div><span class="flow-arrow">→</span>
-        <div class="flow-step"><b>2</b> Sub-modul Panen</div><span class="flow-arrow">→</span>
-        <div class="flow-step"><b>3</b> Scan + Validasi</div><span class="flow-arrow">→</span>
-        <div class="flow-step"><b>4</b> Offline Queue</div><span class="flow-arrow">→</span>
-        <div class="flow-step"><b>5</b> Dashboard KPI</div><span class="flow-arrow">→</span>
-        <div class="flow-step"><b>6</b> Verifikasi</div>
+        <div class="flow-step"><b>1</b> Login</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>2</b> Home & Modul</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>3</b> Sub-modul Panen</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>4</b> Scan + Validasi</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>5</b> Offline Queue</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>6</b> Dashboard KPI</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>7</b> Verifikasi</div>
       </div>
 
       <div class="split-grid">
+        <div class="device mini">
+          <div class="app">
+            <div class="app-header">
+              <div class="header-top">
+                <div class="brand"><span class="mark">SAG</span> Login</div>
+                <div class="chip"><span class="mini-dot"></span>Online</div>
+              </div>
+            </div>
+            <div class="content mini-content">
+              <div class="card">
+                <div class="auth-logo" aria-hidden="true"></div>
+                <div class="title-row" style="justify-content:center; margin-bottom:6px;"><h2>Pecahan 1 — Login</h2></div>
+                <div class="field"><span>NIP</span><span class="v">01250618750024</span></div>
+                <div class="field"><span>Password</span><span class="v">••••••••</span></div>
+                <div class="field"><span>Role</span><span class="v">Krani Panen</span></div>
+                <div class="btns"><div class="btn">Masuk</div><div class="btn alt">Reset</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="device mini">
           <div class="app">
             <div class="app-header">
@@ -1290,7 +1355,7 @@
             </div>
             <div class="content mini-content">
               <div class="card">
-                <div class="title-row"><h2>Pecahan 1 — Home & Modul Utama</h2></div>
+                <div class="title-row"><h2>Pecahan 2 — Home & Modul Utama</h2></div>
                 <div class="modules">
                   <div class="m"><div class="ic rk">RN</div><div class="lb">Rencana</div></div>
                   <div class="m"><div class="ic pn">PN</div><div class="lb">Panen</div></div>
@@ -1314,7 +1379,7 @@
             </div>
             <div class="content mini-content">
               <div class="card">
-                <div class="title-row"><h2>Pecahan 2 — Pilih Sub-modul Panen</h2></div>
+                <div class="title-row"><h2>Pecahan 3 — Pilih Sub-modul Panen</h2></div>
                 <div class="actions">
                   <div class="action">BKM <span>/harvest/bkm</span></div>
                   <div class="action">PMA <span>/harvest/pma</span></div>
@@ -1338,7 +1403,7 @@
             </div>
             <div class="content mini-content">
               <div class="card">
-                <div class="title-row"><h2>Pecahan 3 — Scan Barcode & Validasi</h2></div>
+                <div class="title-row"><h2>Pecahan 4 — Scan Barcode & Validasi</h2></div>
                 <div class="slide-img"><img src="./assets/contoh-barcode.jpeg" alt="Contoh barcode" /></div>
                 <div class="field"><span>Foto Krani</span><span class="v"><span class="status ok">Valid</span></span></div>
                 <div class="field"><span>Foto Buah</span><span class="v"><span class="status ok">Valid</span></span></div>
@@ -1358,7 +1423,7 @@
             </div>
             <div class="content mini-content">
               <div class="card">
-                <div class="title-row"><h2>Pecahan 4 — Offline Queue & Sync</h2></div>
+                <div class="title-row"><h2>Pecahan 5 — Offline Queue & Sync</h2></div>
                 <div class="list">
                   <div class="item"><div><strong>PA21i010</strong> • Panen</div><span class="status wait">Queued</span></div>
                   <div class="item"><div><strong>SPB-00018</strong> • Tonase</div><span class="status bad">Failed</span></div>
@@ -1383,7 +1448,7 @@
             </div>
             <div class="content mini-content">
               <div class="card">
-                <div class="title-row"><h2>Pecahan 5 — Monitoring KPI Dashboard</h2></div>
+                <div class="title-row"><h2>Pecahan 6 — Monitoring KPI Dashboard</h2></div>
                 <div class="slide-img"><img src="./assets/audience-dashboard.jpeg" alt="Dashboard ringkas" /></div>
                 <div class="kpi">
                   <div class="k"><div class="l">Tonase Kebun</div><div class="v">1.165.200</div></div>
@@ -1405,7 +1470,7 @@
             </div>
             <div class="content mini-content">
               <div class="card">
-                <div class="title-row"><h2>Pecahan 6 — Verifikasi Akhir</h2></div>
+                <div class="title-row"><h2>Pecahan 7 — Verifikasi Akhir</h2></div>
                 <div class="list">
                   <div class="item"><div><strong>BKM-00022</strong> • Panen</div><span class="status wait">Waiting</span></div>
                   <div class="item"><div><strong>SPB-00018</strong> • Tonase</div><span class="status wait">Waiting</span></div>
@@ -1420,13 +1485,23 @@
   </div>
 
   <script>
-    const screens = ["home","dashboard","rencana_module","absensi_module","panen_module","rawat_module","laporan_module","berita_acara_module","bpbks_list","bpbks_entry","pma_entry","spb_entry","panen_list","panen_entry","bkm_list","bkm_entry","tonase","approvals","queue","master","profile"];
+    const screens = ["login","home","dashboard","rencana_module","absensi_module","panen_module","rawat_module","laporan_module","berita_acara_module","bpbks_list","bpbks_entry","pma_entry","spb_entry","panen_list","panen_entry","bkm_list","bkm_entry","tonase","approvals","queue","master","profile"];
     let offline = false;
     let queued = 3;
     let fotoKraniDone = false;
     let fotoBuahDone = false;
     let fotoKraniAt = null;
     let fotoBuahAt = null;
+    const loginAccounts = [
+      { user: "01250618750024", role: "Krani Panen", kebun: "PT HSBS" },
+      { user: "01990102030011", role: "Mandor Panen", kebun: "PT HSBS" },
+      { user: "01881212070091", role: "Krani Timbang", kebun: "PT AMP" }
+    ];
+    let activeAccountIndex = 0;
+    let loginCacheEnabled = true;
+    let lastLoginUser = "01250618750024";
+    let lastLoginAt = null;
+    let lastLoginMode = null;
 
     function go(id){
       for(const s of screens){
@@ -1454,7 +1529,115 @@
       chip.classList.toggle("offline", offline);
       label.textContent = offline ? "Offline" : "Online";
       q.textContent = queued;
+      setLoginModeLabel();
       go(document.querySelector(".screen.active")?.id || "home");
+    }
+
+    function setLoginModeLabel(){
+      const badge = document.getElementById("loginModeBadge");
+      const cacheText = document.getElementById("loginCacheText");
+      if(badge){
+        if(offline){
+          badge.textContent = "Offline";
+          badge.className = "status wait";
+        } else {
+          badge.textContent = "Online";
+          badge.className = "status ok";
+        }
+      }
+      if(cacheText){
+        cacheText.textContent = loginCacheEnabled ? "Aktif" : "Nonaktif";
+      }
+    }
+
+    function renderLoginAccount(){
+      const userEl = document.getElementById("loginUserText");
+      const kebunEl = document.getElementById("loginKebunText");
+      const roleEl = document.getElementById("loginRoleText");
+      const account = loginAccounts[activeAccountIndex];
+      if(userEl) userEl.textContent = account.user;
+      if(kebunEl) kebunEl.textContent = account.kebun;
+      if(roleEl) roleEl.textContent = account.role;
+    }
+
+    function switchAccount(){
+      activeAccountIndex = (activeAccountIndex + 1) % loginAccounts.length;
+      renderLoginAccount();
+      const account = loginAccounts[activeAccountIndex];
+      alert(`Akun aktif: ${account.user} (${account.role})`);
+    }
+
+    function renderLastLogin(){
+      const userEl = document.getElementById("lastLoginUser");
+      const timeEl = document.getElementById("lastLoginTime");
+      const modeEl = document.getElementById("lastLoginMode");
+
+      if(userEl){
+        userEl.textContent = lastLoginUser || "-";
+      }
+      if(timeEl){
+        timeEl.textContent = formatWaktu(lastLoginAt);
+      }
+      if(modeEl){
+        if(lastLoginMode === "Online"){
+          modeEl.textContent = "Online";
+          modeEl.className = "status ok";
+        } else if(lastLoginMode === "Offline"){
+          modeEl.textContent = "Offline";
+          modeEl.className = "status wait";
+        } else {
+          modeEl.textContent = "-";
+          modeEl.className = "status wait";
+        }
+      }
+    }
+
+    function saveLastLogin(){
+      try{
+        localStorage.setItem("eplant.lastLoginUser", lastLoginUser || "");
+        localStorage.setItem("eplant.lastLoginAt", lastLoginAt || "");
+        localStorage.setItem("eplant.lastLoginMode", lastLoginMode || "");
+      }catch(e){
+      }
+    }
+
+    function loadLastLogin(){
+      try{
+        const user = localStorage.getItem("eplant.lastLoginUser");
+        const at = localStorage.getItem("eplant.lastLoginAt");
+        const mode = localStorage.getItem("eplant.lastLoginMode");
+        if(user) lastLoginUser = user;
+        if(at) lastLoginAt = at;
+        if(mode) lastLoginMode = mode;
+        if(user){
+          const idx = loginAccounts.findIndex(acc => acc.user === user);
+          if(idx >= 0) activeAccountIndex = idx;
+        }
+      }catch(e){
+      }
+    }
+
+    function toggleLoginCache(){
+      loginCacheEnabled = !loginCacheEnabled;
+      setLoginModeLabel();
+      alert(loginCacheEnabled ? "Cache offline login diaktifkan." : "Cache offline login dinonaktifkan.");
+    }
+
+    function loginApp(){
+      if(offline && !loginCacheEnabled){
+        alert("Offline login gagal. Aktifkan cache login atau kembali online.");
+        return;
+      }
+      if(offline && loginCacheEnabled){
+        alert("Login offline berhasil menggunakan cache akun.");
+      }
+
+      lastLoginUser = loginAccounts[activeAccountIndex].user;
+      lastLoginMode = offline ? "Offline" : "Online";
+      lastLoginAt = new Date().toISOString();
+      renderLastLogin();
+      saveLastLogin();
+      go("home");
     }
 
     function saveOffline(){
@@ -1578,6 +1761,10 @@
       document.body.classList.remove("boss-print");
     });
 
+    loadLastLogin();
+    renderLoginAccount();
+    setLoginModeLabel();
+    renderLastLogin();
     renderValidasiPanen();
   </script>
 </body>
