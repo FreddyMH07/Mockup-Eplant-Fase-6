@@ -1,1031 +1,1584 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Phase 6 Barcode TPH Mockup</title>
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E-Plant Phase 6 (Mobile) – Mockup v3</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
-      :root {
-        --bg: #f2f3f5;
-        --bg-2: #e9ebee;
-        --ink: #1d1f22;
-        --muted: #6b7076;
-        --brand: #f2a900;
-        --brand-2: #f08b00;
-        --accent: #2ea36a;
-        --accent-2: #1f7e52;
-        --card: #ffffff;
-        --line: #e1e3e6;
-        --shadow: 0 14px 34px rgba(29, 31, 34, 0.12);
-        --chip: #fef3d5;
-        --chip-text: #9c6b00;
-        --dark: #2b2f33;
+    :root{
+      /* Design tokens */
+      --bg: #F4F6F8;
+      --surface: #FFFFFF;
+      --surface-2: #F7F8FA;
+      --ink: #16181B;
+      --muted: #5F6770;
+      --line: #E4E7EC;
+
+      --brand: #F2A900;     /* SAG orange */
+      --brand-2: #F08B00;
+      --accent: #2EA36A;    /* SAG green */
+      --accent-2: #1F7E52;
+
+      --danger: #E5484D;
+      --warn: #F5A623;
+      --info: #2E90FA;
+
+      --r-1: 10px;
+      --r-2: 14px;
+      --r-3: 18px;
+
+      --shadow: 0 10px 26px rgba(16, 24, 40, 0.10);
+      --shadow-2: 0 18px 40px rgba(16, 24, 40, 0.14);
+
+      --space-1: 6px;
+      --space-2: 10px;
+      --space-3: 14px;
+      --space-4: 18px;
+      --space-5: 22px;
+
+      --font: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --font-head: "Sora", "Space Grotesk", system-ui, sans-serif;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: var(--font);
+      color: var(--ink);
+      background:
+        radial-gradient(1100px 540px at 10% -10%, #ffffff 0%, transparent 60%),
+        radial-gradient(900px 460px at 90% 0%, #f7f8fa 0%, transparent 60%),
+        linear-gradient(180deg, #EEF2F5 0%, var(--bg) 100%);
+    }
+
+    /* ====== Page / preview layout ====== */
+    .page{
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 18px 60px;
+      display: grid;
+      gap: 18px;
+    }
+
+    header{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 18px 18px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--r-3);
+      background: rgba(255,255,255,0.7);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    h1{
+      margin:0;
+      font-family: var(--font-head);
+      font-size: 22px;
+      letter-spacing: -0.3px;
+    }
+    .sub{
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+      max-width: 740px;
+    }
+    .pill{
+      display:inline-flex;
+      gap: 8px;
+      align-items:center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #FFF4E8;
+      color: #6B4A14;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .head-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .print-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #FFFFFF;
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 700;
+      cursor:pointer;
+      user-select:none;
+    }
+    .print-btn.alt{
+      background: #FFF4E8;
+      border-color: #FFE0A6;
+      color: #8A5B00;
+    }
+    .dot{
+      width: 9px; height: 9px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand), var(--accent));
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+    .summary-bar{
+      border: 1px solid var(--line);
+      border-radius: var(--r-3);
+      background: rgba(255,255,255,0.8);
+      box-shadow: var(--shadow);
+      padding: 12px 14px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+    }
+    .summary-item{
+      border: 1px dashed #D0D5DD;
+      border-radius: 12px;
+      padding: 8px 10px;
+      font-size: 10px;
+      color: var(--muted);
+      background:#fff;
+      display:grid;
+      gap: 4px;
+    }
+    .summary-item strong{ color: var(--ink); font-size: 11px; }
+
+    /* ====== Device ====== */
+    .device{
+      width: 360px;
+      max-width: 100%;
+      margin: 0 auto;
+      border-radius: 28px;
+      border: 1px solid var(--line);
+      background: #0F1115;
+      box-shadow: var(--shadow-2);
+      overflow:hidden;
+      position: relative;
+    }
+    .device::before{
+      content:"";
+      position:absolute;
+      top: 10px; left: 50%;
+      width: 120px; height: 18px;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+      pointer-events:none;
+      z-index: 4;
+    }
+    .device.mini{
+      width: 300px;
+    }
+    .app{
+      height: 780px; /* demo height */
+      background: var(--bg);
+      position: relative;
+    }
+    .device.mini .app{
+      height: 640px;
+    }
+    .mini-content{
+      height: calc(640px - 110px);
+    }
+    .device.mini .card .title-row h2{
+      font-size: 13px;
+    }
+    .device.mini .field,
+    .device.mini .item,
+    .device.mini .action,
+    .device.mini .lb{
+      font-size: 10px;
+    }
+    .device.mini .action span{
+      display:none;
+    }
+    .device.mini .status{
+      font-size: 9px;
+      padding: 3px 7px;
+    }
+    .split-grid{
+      grid-column: 1 / -1;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      align-items: start;
+    }
+    .split-title{
+      grid-column: 1 / -1;
+      border: 1px dashed #D0D5DD;
+      border-radius: var(--r-3);
+      padding: 12px 14px;
+      background: rgba(255,255,255,0.7);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .split-title strong{ color: var(--ink); }
+    .flow-legend{
+      grid-column: 1 / -1;
+      display:flex;
+      flex-wrap: wrap;
+      align-items:center;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .flow-step{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background:#fff;
+      font-size: 10px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .flow-step b{ color: var(--ink); }
+    .flow-arrow{ color:#98A2B3; font-size: 12px; }
+
+    /* ====== App chrome ====== */
+    .app-header{
+      padding: 18px 14px 14px;
+      background: linear-gradient(180deg, #1A1E24 0%, #12151A 100%);
+      color: #fff;
+      border-bottom-left-radius: 24px;
+      border-bottom-right-radius: 24px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+    }
+    .header-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      font-size: 13px;
+    }
+    .mark{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      font-weight: 800;
+      font-size: 0;
+      color: transparent;
+      background: #fff url('./assets/logo-PTSAG.png') center/78% no-repeat;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .ctx{
+      margin-top: 10px;
+      display:grid;
+      gap: 6px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.78);
+    }
+    .ctx strong{ color:#fff; font-weight:700; }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.92);
+      user-select:none;
+    }
+    .chip .mini-dot{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 3px rgba(46,163,106,0.18);
+    }
+    .chip.offline .mini-dot{ background: var(--warn); box-shadow: 0 0 0 3px rgba(245,166,35,0.18); }
+
+    .banner{
+      margin-top: 12px;
+      padding: 10px 10px;
+      border-radius: 14px;
+      background: rgba(46, 144, 250, 0.12);
+      border: 1px solid rgba(46, 144, 250, 0.18);
+      color: rgba(255,255,255,0.90);
+      font-size: 11px;
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:center;
+    }
+    .banner strong{ color:#fff; }
+
+    .content{
+      padding: 14px 14px 88px; /* leave room for bottom nav */
+      height: calc(780px - 110px);
+      overflow:auto;
+      scrollbar-width: none;
+    }
+    .content::-webkit-scrollbar{ width:0; height:0; }
+
+    /* ====== UI primitives ====== */
+    .card{
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--r-3);
+      padding: 12px;
+      box-shadow: var(--shadow);
+    }
+    .card + .card{ margin-top: 12px; }
+
+    .title-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .title-row h2{
+      margin:0;
+      font-size: 14px;
+      letter-spacing: -0.2px;
+      font-family: var(--font-head);
+    }
+    .link{
+      color: var(--info);
+      font-size: 11px;
+      font-weight: 600;
+      cursor:pointer;
+      user-select:none;
+    }
+    .muted{ color: var(--muted); }
+    .kpi{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .kpi .k{
+      border-radius: 14px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+    }
+    .k .l{ font-size: 10px; color: var(--muted); }
+    .k .v{ font-size: 14px; font-weight: 800; margin-top: 4px; }
+
+    .modules{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .m{
+      position:relative;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      display:grid;
+      gap: 8px;
+      cursor:pointer;
+      user-select:none;
+      box-shadow: 0 10px 20px rgba(16,24,40,0.06);
+      min-height: 78px;
+    }
+    .m .ic{
+      width: 30px; height: 30px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      font-size: 12px;
+      color:#fff;
+    }
+    .m .lb{ font-size: 10px; color: var(--muted); line-height: 1.2; }
+    .badge{
+      position:absolute;
+      top: 8px; right: 8px;
+      font-size: 9px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 999px;
+      color:#fff;
+      background: var(--danger);
+    }
+
+    .ic.md{ background:#F59E0B; }
+    .ic.rk{ background:#60A5FA; }
+    .ic.ab{ background:#FBBF24; }
+    .ic.pn{ background:#14B8A6; }
+    .ic.bk{ background:#8B5CF6; }
+    .ic.tn{ background:#22C55E; }
+    .ic.lp{ background:#F472B6; }
+    .ic.ap{ background:#64748B; }
+
+    .actions{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .action{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      cursor:pointer;
+      user-select:none;
+      box-shadow: 0 10px 20px rgba(16,24,40,0.06);
+    }
+    .action span{
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 10px;
+    }
+
+    .list{
+      display:grid;
+      gap: 8px;
+    }
+    .item{
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 10px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--surface-2);
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .item strong{ color: var(--ink); font-weight: 800; }
+
+    .status{
+      display:inline-flex;
+      align-items:center;
+      gap: 6px;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #FFF3D6;
+      color: #8A5B00;
+      white-space:nowrap;
+    }
+    .status.ok{ background:#E8F5E9; color:#1F7E52; }
+    .status.bad{ background:#FFEBEE; color:#B42318; }
+    .status.wait{ background:#EEF4FF; color:#2E5AAC; }
+
+    .field{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 10px 10px;
+      font-size: 11px;
+      color: var(--muted);
+      display:flex;
+      justify-content:space-between;
+      gap: 10px;
+      align-items:center;
+    }
+    .field .v{ color: var(--ink); font-weight: 800; }
+    .field + .field{ margin-top: 8px; }
+
+    .chart-card{
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 10px;
+      margin-top: 8px;
+    }
+    .chart-title{
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .legend{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 9px;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .legend span::before{
+      content:"";
+      width: 8px;
+      height: 8px;
+      border-radius: 3px;
+      display:inline-block;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .legend .a::before{ background:#F2A900; }
+    .legend .b::before{ background:#60A5FA; }
+    .legend .c::before{ background:#2EA36A; }
+    .legend .d::before{ background:#E5484D; }
+    .mini-bars{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      align-items:end;
+      height: 54px;
+    }
+    .mini-bars span{
+      display:block;
+      border-radius: 6px 6px 2px 2px;
+      background: linear-gradient(180deg, var(--brand), var(--brand-2));
+    }
+
+    .textarea{
+      border: 1px dashed #D0D5DD;
+      border-radius: 14px;
+      background: #fff;
+      padding: 10px 10px;
+      font-size: 11px;
+      color: var(--muted);
+      min-height: 64px;
+      display:flex;
+      align-items:flex-start;
+      gap: 10px;
+    }
+
+    .btns{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .btn{
+      border-radius: 14px;
+      padding: 10px 10px;
+      font-size: 11px;
+      font-weight: 900;
+      text-align:center;
+      cursor:pointer;
+      user-select:none;
+      border: 1px solid transparent;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#111;
+    }
+    .btn.alt{
+      background: #fff;
+      border-color: #FFD7C3;
+      color: var(--accent-2);
+    }
+
+    .stepper{
+      display:flex;
+      gap: 8px;
+      align-items:center;
+      margin: 10px 0 6px;
+    }
+    .step{
+      flex:1;
+      height: 8px;
+      border-radius: 999px;
+      background: #E7EAEE;
+      overflow:hidden;
+    }
+    .step > i{
+      display:block;
+      height:100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    }
+
+    /* ====== Bottom nav ====== */
+    .nav{
+      position:absolute;
+      left: 0; right: 0; bottom: 0;
+      padding: 10px 12px 14px;
+      background: rgba(255,255,255,0.92);
+      border-top: 1px solid var(--line);
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      backdrop-filter: blur(10px);
+    }
+    .nav .n{
+      text-align:center;
+      font-size: 10px;
+      color: var(--muted);
+      padding: 8px 0;
+      border-radius: 12px;
+      cursor:pointer;
+      user-select:none;
+      border: 1px solid transparent;
+    }
+    .nav .n.active{
+      color: #8A5B00;
+      background: #FFF3D6;
+      border-color: #FFE0A6;
+      font-weight: 800;
+    }
+    /* ====== Screen router ====== */
+    .screen{ display:none; }
+    .screen.active{ display:block; }
+
+    /* ====== “Floating” shortcut (mock only) ====== */
+    .fab{
+      position:absolute;
+      right: 14px;
+      bottom: 84px;
+      width: 46px; height: 46px;
+      border-radius: 18px;
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      box-shadow: 0 18px 30px rgba(31,126,82,0.28);
+      cursor:pointer;
+      user-select:none;
+    }
+
+    /* ====== Side note cards ====== */
+    .note{
+      border: 1px dashed #D0D5DD;
+      border-radius: var(--r-3);
+      padding: 14px;
+      background: rgba(255,255,255,0.7);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+    .note h3{
+      margin:0 0 8px;
+      font-family: var(--font-head);
+      font-size: 14px;
+      letter-spacing: -0.2px;
+    }
+    .note ul{ margin:0; padding-left: 18px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+    .note code{ font-size: 11px; background:#fff; border:1px solid var(--line); padding: 2px 6px; border-radius: 8px; }
+    .slide-img{
+      margin: 10px 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .slide-img img{
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 320px;
+    }
+
+    @media (max-width: 860px){
+      header{ flex-direction:column; align-items:flex-start; }
+      .device{ width: 100%; }
+    }
+
+    @media print{
+      body{ background:#fff; }
+      .page{ max-width:none; margin:0; padding:0; }
+      header,
+      .fab,
+      .nav,
+      .print-btn{
+        display:none !important;
       }
-
-      * {
-        box-sizing: border-box;
+      .grid{
+        display:grid;
+        grid-template-columns: 1fr;
+        gap: 12mm;
       }
-
-      body {
-        margin: 0;
-        font-family: "Space Grotesk", "Sora", system-ui, sans-serif;
-        color: var(--ink);
-        background:
-          radial-gradient(1200px 600px at 10% -10%, #ffffff 0%, transparent 60%),
-          radial-gradient(1000px 500px at 90% 0%, #f7f8fa 0%, transparent 60%),
-          linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      .device{
+        background:#fff;
+        border: 1px solid #ddd;
+        box-shadow:none;
+        width: 100% !important;
+        max-width: 100% !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
       }
-
-      .page {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 48px 24px 80px;
+      body.boss-print .main-device{
+        display:none !important;
       }
-
-      header {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        gap: 24px;
-        margin-bottom: 32px;
-        border-bottom: 1px solid var(--line);
-        padding-bottom: 18px;
+      body.boss-print .summary-bar{
+        margin-bottom: 6mm;
       }
-
-      h1 {
-        margin: 0;
-        font-family: "Sora", "Space Grotesk", sans-serif;
-        font-size: 34px;
-        letter-spacing: -0.5px;
-      }
-
-      .subtitle {
-        margin: 4px 0 0;
-        color: var(--muted);
-        font-size: 14px;
-      }
-
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        border: 1px solid var(--line);
-        background: #fff3e8;
-        color: var(--muted);
-        font-size: 12px;
-        padding: 6px 10px;
-        border-radius: 999px;
-      }
-
-      section {
-        margin-top: 36px;
-      }
-
-      .section-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 16px;
-      }
-
-      .section-title h2 {
-        margin: 0;
-        font-size: 20px;
-      }
-
-      .grid {
-        display: grid;
-        gap: 18px;
-      }
-
-      .grid.mobile {
-        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      }
-
-      .grid.web {
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      }
-
-      .grid.mobile-wide {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      }
-
-      .card {
-        background: var(--card);
-        border: 1px solid var(--line);
-        border-radius: 18px;
-        padding: 16px;
-        box-shadow: var(--shadow);
-        position: relative;
-        overflow: hidden;
-        animation: rise 700ms ease forwards;
-      }
-
-      .card::after {
-        content: "";
-        position: absolute;
-        inset: -20% auto auto -20%;
-        width: 140px;
-        height: 140px;
-        background: radial-gradient(circle, rgba(26, 122, 108, 0.15), transparent 60%);
-        border-radius: 50%;
-        pointer-events: none;
-      }
-
-      .screen {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: #fff;
-        padding: 12px;
-      }
-
-      .device {
-        border-radius: 22px;
-        overflow: hidden;
-        border: 1px solid var(--line);
-        background: #fff;
-      }
-
-      .device-header {
-        background: var(--dark);
-        color: #fff;
-        padding: 16px 14px 18px;
-        border-bottom-left-radius: 24px;
-        border-bottom-right-radius: 24px;
-      }
-
-      .brand-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 12px;
-      }
-
-      .logo-mark {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 700;
-        letter-spacing: 0.4px;
-      }
-
-      .logo-dot {
-        width: 30px;
-        height: 30px;
-        border-radius: 10px;
-        background: linear-gradient(135deg, var(--brand), var(--accent));
-        display: grid;
-        place-items: center;
-        color: #fff;
-        font-size: 12px;
-      }
-
-      .device-body {
-        padding: 16px 14px 10px;
-        background: #f7f8fa;
-      }
-
-      .welcome {
-        font-size: 18px;
-        font-weight: 600;
-      }
-
-      .welcome-sub {
-        font-size: 12px;
-        color: #c9cdd2;
-      }
-
-      .screen-title {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        margin-bottom: 10px;
-      }
-
-      .screen-title .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: var(--brand);
-      }
-
-      .screen h3 {
-        margin: 0 0 10px;
-        font-size: 14px;
-        color: var(--muted);
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-      }
-
-      .bar {
-        height: 10px;
-        border-radius: 8px;
-        background: linear-gradient(90deg, var(--brand), var(--accent));
-        opacity: 0.8;
-        margin-bottom: 12px;
-      }
-
-      .row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 8px;
-        font-size: 12px;
-        color: var(--muted);
-      }
-
-      .field {
-        background: #f8f2ea;
-        border: 1px dashed var(--line);
-        border-radius: 10px;
-        padding: 8px;
-        margin-bottom: 8px;
-        font-size: 12px;
-      }
-
-      .app-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
-      }
-
-      .app-title {
-        font-size: 13px;
-        font-weight: 600;
-      }
-
-      .chip {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: var(--chip);
-        color: var(--chip-text);
-        padding: 4px 8px;
-        border-radius: 999px;
-        font-size: 10px;
-        font-weight: 600;
-      }
-
-      .tag {
-        display: inline-block;
-        padding: 4px 8px;
-        border-radius: 8px;
-        background: #e7f2ef;
-        color: var(--brand);
-        font-weight: 600;
-        font-size: 11px;
-      }
-
-      .btn-row {
-        display: grid;
+      body.boss-print .split-grid{
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        margin-top: 10px;
+        gap: 8mm;
       }
-
-      .btn {
-        background: var(--brand);
-        color: #fff;
-        border-radius: 10px;
-        padding: 8px 10px;
-        font-size: 12px;
-        text-align: center;
+      body.boss-print .flow-arrow{
+        display:none;
       }
+    }
+  </style>
+</head>
 
-      .btn.alt {
-        background: #fff2e8;
-        color: var(--accent);
-        border: 1px solid #ffd7c3;
-      }
+<body>
+  <div class="page">
+    <header>
+      <div>
+        <h1>E-Plant Phase 6 (Mobile) – Mockup v3</h1>
+        <p class="sub">
+          Ringkasan eksekutif Phase 6: alur panen mobile dari input lapangan sampai verifikasi akhir,
+          ditampilkan dalam 1 app lengkap + 6 pecahan proses inti.
+        </p>
+      </div>
+      <div class="head-actions">
+        <div class="pill"><span class="dot"></span> Executive View • Mobile Flow</div>
+        <div class="print-btn" onclick="window.print()">Cetak</div>
+        <div class="print-btn alt" onclick="bossPrint()">Boss Print</div>
+      </div>
+    </header>
 
-      .list {
-        display: grid;
-        gap: 6px;
-      }
-
-      .list-item {
-        background: #f7efe6;
-        border-radius: 10px;
-        padding: 8px;
-        font-size: 12px;
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .module-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-      }
-
-      .home-summary {
-        background: #ffffff;
-        border: 1px solid #e7e9ed;
-        border-radius: 12px;
-        padding: 10px;
-        margin-bottom: 10px;
-        display: grid;
-        gap: 6px;
-      }
-
-      .home-summary .row {
-        margin: 0;
-        font-size: 11px;
-      }
-
-      .home-kpi {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 8px;
-      }
-
-      .home-kpi .stat-card {
-        padding: 8px;
-        text-align: center;
-      }
-
-      .module-card {
-        background: #fff;
-        border: 1px solid #e7e9ed;
-        border-radius: 12px;
-        padding: 8px;
-        min-height: 64px;
-        display: grid;
-        gap: 6px;
-        box-shadow: 0 8px 18px rgba(29, 31, 34, 0.08);
-        position: relative;
-      }
-
-      .notify-badge {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        background: #ff4b3e;
-        color: #fff;
-        font-size: 9px;
-        font-weight: 700;
-        padding: 2px 5px;
-        border-radius: 999px;
-      }
-
-      .module-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 8px;
-        color: #fff;
-        font-size: 11px;
-        font-weight: 700;
-        display: grid;
-        place-items: center;
-      }
-
-      .t-orange { background: #f9c27a; }
-      .t-blue { background: #9dc7f0; }
-      .t-yellow { background: #f4d37e; }
-      .t-teal { background: #9bd3d0; }
-      .t-purple { background: #c7b1f1; }
-      .t-pink { background: #f3b5c3; }
-      .t-green { background: #b6e0b8; }
-      .t-sand { background: #f3d8a4; }
-      .t-slate { background: #c7ced6; }
-      .t-rose { background: #f0b3a1; }
-      .t-amber { background: #f0c36d; }
-      .t-mint { background: #a7e0c1; }
-
-      .module-label {
-        font-size: 10px;
-        line-height: 1.2;
-        color: var(--muted);
-      }
-
-      .stat-row {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin-bottom: 10px;
-      }
-
-      .stat-row.primary {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .stat-card {
-        background: #f7efe6;
-        border-radius: 12px;
-        padding: 8px;
-        border: 1px solid #eadcd0;
-      }
-
-      .stat-card.good {
-        background: #e8f5e9;
-        border-color: #c8e6c9;
-      }
-
-      .stat-card.warn {
-        background: #fff8e1;
-        border-color: #ffecb3;
-      }
-
-      .stat-card.bad {
-        background: #ffebee;
-        border-color: #ffcdd2;
-      }
-
-      .stat-label {
-        font-size: 10px;
-        color: var(--muted);
-      }
-
-      .stat-value {
-        font-size: 14px;
-        font-weight: 700;
-      }
-
-      .quick-actions {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin: 10px 0 12px;
-      }
-
-      .quick-action {
-        background: #ffffff;
-        border: 1px solid #e7e9ed;
-        border-radius: 12px;
-        padding: 8px;
-        font-size: 11px;
-        font-weight: 600;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        box-shadow: 0 6px 16px rgba(29, 31, 34, 0.08);
-      }
-
-      .quick-action span {
-        color: var(--muted);
-        font-weight: 500;
-        font-size: 10px;
-      }
-
-      .mini-chart {
-        background: #ffffff;
-        border: 1px solid #e7e9ed;
-        border-radius: 12px;
-        padding: 8px;
-        margin: 8px 0 10px;
-      }
-
-      .mini-bars {
-        display: grid;
-        grid-template-columns: repeat(7, 1fr);
-        gap: 6px;
-        align-items: end;
-        height: 60px;
-        margin-top: 6px;
-      }
-
-      .mini-bars span {
-        display: block;
-        background: linear-gradient(180deg, var(--brand), var(--brand-2));
-        border-radius: 6px 6px 2px 2px;
-      }
-
-      .restan-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin-bottom: 8px;
-      }
-
-      .restan-card {
-        background: #fff7ef;
-        border: 1px solid #f0dcc7;
-        border-radius: 12px;
-        padding: 8px;
-        font-size: 11px;
-        color: var(--muted);
-      }
-
-      .restan-card strong {
-        display: block;
-        font-size: 14px;
-        color: var(--ink);
-      }
-
-      .attach-row {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin: 8px 0;
-      }
-
-      .attach {
-        border: 1px dashed #d6d9de;
-        border-radius: 12px;
-        padding: 10px;
-        background: #fff;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 11px;
-        color: var(--muted);
-      }
-
-      .attach-icon {
-        width: 26px;
-        height: 26px;
-        border-radius: 8px;
-        background: #f1f3f6;
-        display: grid;
-        place-items: center;
-        font-weight: 700;
-        color: var(--brand-2);
-      }
-
-      .chart-bar {
-        height: 8px;
-        border-radius: 10px;
-        background: #efe6dd;
-        overflow: hidden;
-        margin-top: 6px;
-      }
-
-      .chart-bar span {
-        display: block;
-        height: 100%;
-        background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      }
-
-      .filter-row {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        margin-bottom: 10px;
-      }
-
-      .filter-pill {
-        background: #ffffff;
-        border: 1px solid #e7e9ed;
-        border-radius: 10px;
-        padding: 8px;
-        font-size: 11px;
-        color: var(--muted);
-      }
-
-      .chart-card {
-        background: #ffffff;
-        border: 1px solid #e7e9ed;
-        border-radius: 12px;
-        padding: 10px;
-        margin-bottom: 8px;
-      }
-
-      .chart-title {
-        font-size: 12px;
-        font-weight: 600;
-        margin-bottom: 6px;
-      }
-
-      .legend {
-        display: flex;
-        gap: 8px;
-        font-size: 10px;
-        color: var(--muted);
-        margin-bottom: 6px;
-      }
-
-      .legend span::before {
-        content: "";
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 3px;
-        margin-right: 4px;
-        vertical-align: middle;
-      }
-
-      .legend .a::before { background: #f2a900; }
-      .legend .b::before { background: #4aa3ff; }
-      .legend .c::before { background: #8bc34a; }
-      .legend .d::before { background: #e57373; }
-
-      .profile-list {
-        display: grid;
-        gap: 6px;
-      }
-
-      .profile-item {
-        background: #f9f1e9;
-        border: 1px solid #eadcd0;
-        border-radius: 10px;
-        padding: 6px 8px;
-        font-size: 11px;
-        color: var(--muted);
-        display: flex;
-        justify-content: space-between;
-      }
-
-      .nav {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 6px;
-        margin-top: 8px;
-      }
-
-      .nav span.barcode {
-        background: #ffe6b8;
-        color: #8a5b00;
-        font-weight: 700;
-      }
-
-      .nav span {
-        background: #f1f3f6;
-        border-radius: 8px;
-        font-size: 10px;
-        text-align: center;
-        padding: 6px 0;
-        color: var(--muted);
-      }
-
-      .nav span.active {
-        background: #fff3d6;
-        color: #9c6b00;
-        font-weight: 600;
-      }
-
-      .badge {
-        background: #ffe9d6;
-        color: #b45b36;
-        padding: 2px 6px;
-        border-radius: 6px;
-        font-size: 11px;
-      }
-
-      .hero-note {
-        font-size: 13px;
-        color: var(--muted);
-        max-width: 560px;
-      }
-
-      @keyframes rise {
-        from {
-          transform: translateY(12px);
-          opacity: 0;
-        }
-        to {
-          transform: translateY(0);
-          opacity: 1;
-        }
-      }
-
-      .stagger > .card:nth-child(1) { animation-delay: 0ms; }
-      .stagger > .card:nth-child(2) { animation-delay: 80ms; }
-      .stagger > .card:nth-child(3) { animation-delay: 160ms; }
-      .stagger > .card:nth-child(4) { animation-delay: 240ms; }
-
-      @media (max-width: 760px) {
-        header {
-          flex-direction: column;
-          align-items: flex-start;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="page">
-      <header>
-        <div>
-          <h1>Phase 6 Mockup: Barcode TPH (Mobile)</h1>
-          <p class="subtitle">High-fi mobile-only draft aligned to legacy UI for stakeholder review</p>
-        </div>
-        <div class="pill">Mobile only • Offline first • BPBKS + SPB integration</div>
-      </header>
-
-      <section>
-        <div class="section-title">
-          <h2>Mobile Core (Phase 6)</h2>
-          <span class="hero-note">Lebih detail dan profesional: Login, Home, Dashboard, Profil, dan Barcode TPH.</span>
-        </div>
-        <div class="grid mobile-wide stagger">
-          <div class="card">
-            <div class="device">
-              <div class="device-header" style="text-align:center;">
-                <div class="logo-mark" style="justify-content:center;">
-                  <span class="logo-dot">SAG</span>
-                  Sahabat Agro Group
-                </div>
-                <div class="welcome" style="margin-top:10px;">Masuk</div>
-                <div class="welcome-sub">Masukan NIP dan kata sandi</div>
-              </div>
-              <div class="device-body">
-                <div class="field">NIP</div>
-                <div class="field">Kata sandi</div>
-                <div class="row"><span>Ingat saya</span><span>Lupa kata sandi?</span></div>
-                <div class="btn">Masuk</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="device">
-              <div class="device-header">
-                <div class="brand-row">
-                  <div class="logo-mark"><span class="logo-dot">SAG</span> E-Plant</div>
-                  <div class="chip">Online • 5 notif</div>
-                </div>
-                <div class="welcome">Super Admin</div>
-                <div class="welcome-sub">Selamat datang di E-Plantation</div>
-              </div>
-              <div class="device-body">
-                <div class="home-summary">
-                  <div class="row"><span>Organisasi</span><strong>PT Hasil Sawit Bina Sejahtera</strong></div>
-                  <div class="row"><span>Divisi</span><strong>Inti</strong></div>
-                  <div class="row"><span>Tanggal</span><strong>19 Feb 2026</strong></div>
-                </div>
-                <div class="home-kpi">
-                  <div class="stat-card good"><div class="stat-label">Tugas</div><div class="stat-value">12</div></div>
-                  <div class="stat-card warn"><div class="stat-label">Restan</div><div class="stat-value">6</div></div>
-                  <div class="stat-card good"><div class="stat-label">Sync</div><div class="stat-value">94%</div></div>
-                </div>
-                <div class="module-grid">
-                  <div class="module-card"><div class="module-icon t-orange">MD</div><div class="module-label">Master Data</div></div>
-                  <div class="module-card"><div class="module-icon t-blue">RK</div><div class="module-label">Rencana</div></div>
-                  <div class="module-card"><span class="notify-badge">3</span><div class="module-icon t-yellow">AB</div><div class="module-label">Absensi</div></div>
-                  <div class="module-card"><span class="notify-badge">2</span><div class="module-icon t-teal">PN</div><div class="module-label">Panen</div></div>
-                  <div class="module-card"><div class="module-icon t-purple">RW</div><div class="module-label">Rawat</div></div>
-                  <div class="module-card"><div class="module-icon t-pink">LP</div><div class="module-label">Laporan</div></div>
-                  <div class="module-card"><div class="module-icon t-blue">BA</div><div class="module-label">Berita Acara</div></div>
-                  <div class="module-card"><span class="notify-badge">4</span><div class="module-icon t-green">PS</div><div class="module-label">Persetujuan</div></div>
-                </div>
-                <div class="quick-actions">
-                  <div class="quick-action">Scan TPH <span>Barcode</span></div>
-                  <div class="quick-action">Absensi <span>Hari ini</span></div>
-                  <div class="quick-action">Panen <span>BKM</span></div>
-                  <div class="quick-action">Laporan <span>Ringkas</span></div>
-                </div>
-                <div class="nav">
-                  <span class="active">Home</span>
-                  <span>Dashboard</span>
-                  <span class="barcode">Barcode</span>
-                  <span>Profil</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="device">
-              <div class="device-header">
-                <div class="brand-row">
-                  <div class="logo-mark"><span class="logo-dot">SAG</span> Dashboard</div>
-                  <div class="chip">Feb 2026</div>
-                </div>
-                <div class="welcome">Dashboard</div>
-                <div class="welcome-sub">Ringkasan chart sesuai modul mobile</div>
-              </div>
-              <div class="device-body">
-                <div class="filter-row">
-                  <div class="filter-pill">Organisasi</div>
-                  <div class="filter-pill">Divisi</div>
-                  <div class="filter-pill">Tahun</div>
-                  <div class="filter-pill">Bulan</div>
-                </div>
-                <div class="stat-row primary">
-                  <div class="stat-card warn"><div class="stat-label">Budget Sensus</div><div class="stat-value">638.831 Kg</div></div>
-                  <div class="stat-card good"><div class="stat-label">Realisasi Kebun</div><div class="stat-value">1.165.200 Kg</div></div>
-                  <div class="stat-card good"><div class="stat-label">Realisasi PKS</div><div class="stat-value">1.102.450 Kg</div></div>
-                  <div class="stat-card bad"><div class="stat-label">ACV Prod (%)</div><div class="stat-value">182.40%</div></div>
-                </div>
-                <div class="chart-card">
-                  <div class="chart-title">Total Produksi</div>
-                  <div class="legend"><span class="a">Tonase Kebun (Kg)</span><span class="b">Tonase PKS (Kg)</span></div>
-                  <div class="mini-bars">
-                    <span style="height: 32px;"></span>
-                    <span style="height: 50px;"></span>
-                    <span style="height: 28px;"></span>
-                    <span style="height: 56px;"></span>
-                    <span style="height: 38px;"></span>
-                    <span style="height: 52px;"></span>
-                    <span style="height: 44px;"></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <div class="chart-title">Yield</div>
-                  <div class="legend"><span class="a">Budget Yield</span><span class="b">Real Yield</span></div>
-                  <div class="mini-bars">
-                    <span style="height: 42px;"></span>
-                    <span style="height: 36px;"></span>
-                    <span style="height: 48px;"></span>
-                    <span style="height: 30px;"></span>
-                    <span style="height: 54px;"></span>
-                    <span style="height: 34px;"></span>
-                    <span style="height: 46px;"></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <div class="chart-title">AKP</div>
-                  <div class="legend"><span class="c">Rencana (%)</span><span class="d">Realisasi (%)</span></div>
-                  <div class="mini-bars">
-                    <span style="height: 28px;"></span>
-                    <span style="height: 40px;"></span>
-                    <span style="height: 22px;"></span>
-                    <span style="height: 46px;"></span>
-                    <span style="height: 30px;"></span>
-                    <span style="height: 50px;"></span>
-                    <span style="height: 34px;"></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <div class="chart-title">Refraksi</div>
-                  <div class="legend"><span class="a">Kebun (Kg, %)</span><span class="b">PKS (Kg, %)</span></div>
-                  <div class="mini-bars">
-                    <span style="height: 24px;"></span>
-                    <span style="height: 32px;"></span>
-                    <span style="height: 18px;"></span>
-                    <span style="height: 36px;"></span>
-                    <span style="height: 26px;"></span>
-                    <span style="height: 40px;"></span>
-                    <span style="height: 28px;"></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <div class="chart-title">BPBKS per Tanggal</div>
-                  <div class="legend">
-                    <span class="a">Matang (Pcs)</span>
-                    <span class="b">Mentah (Pcs)</span>
-                    <span class="c">Lewat Matang (Pcs)</span>
-                    <span class="d">Busuk (Pcs)</span>
-                  </div>
-                  <div class="mini-bars">
-                    <span style="height: 30px;"></span>
-                    <span style="height: 44px;"></span>
-                    <span style="height: 20px;"></span>
-                    <span style="height: 38px;"></span>
-                    <span style="height: 26px;"></span>
-                    <span style="height: 48px;"></span>
-                    <span style="height: 22px;"></span>
-                  </div>
-                </div>
-                <div class="chart-card">
-                  <div class="chart-title">BPBKS per Blok</div>
-                  <div class="legend"><span class="a">Matang</span><span class="b">Mentah</span><span class="c">Lewat Matang</span><span class="d">Busuk</span></div>
-                  <div class="mini-bars">
-                    <span style="height: 26px;"></span>
-                    <span style="height: 34px;"></span>
-                    <span style="height: 18px;"></span>
-                    <span style="height: 42px;"></span>
-                    <span style="height: 24px;"></span>
-                    <span style="height: 46px;"></span>
-                    <span style="height: 28px;"></span>
-                  </div>
-                </div>
-                <div class="nav">
-                  <span>Home</span>
-                  <span class="active">Dashboard</span>
-                  <span class="barcode">Barcode</span>
-                  <span>Profil</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="device">
-              <div class="device-header">
-                <div class="brand-row">
-                  <div class="logo-mark"><span class="logo-dot">SAG</span> Profil</div>
-                  <div class="chip">R&D Agronomi</div>
-                </div>
-                <div class="welcome">Super Admin</div>
-                <div class="welcome-sub">Informasi Umum</div>
-              </div>
-              <div class="device-body">
-                <div class="profile-list">
-                  <div class="profile-item"><span>NIP</span><strong>01250618750024</strong></div>
-                  <div class="profile-item"><span>Alamat</span><strong>Jakarta</strong></div>
-                  <div class="profile-item"><span>No HP</span><strong>081333767281</strong></div>
-                  <div class="profile-item"><span>Jenis Kelamin</span><strong>Laki-laki</strong></div>
-                  <div class="profile-item"><span>Jenis Karyawan</span><strong>Kantor</strong></div>
-                  <div class="profile-item"><span>Email</span><strong>staf.agronomi@sahabatagro.co.id</strong></div>
-                  <div class="profile-item"><span>Penanggung Jawab</span><strong>Asisten Divisi</strong></div>
-                  <div class="profile-item"><span>Lingkup Kerja</span><strong>Divisi Inti</strong></div>
-                </div>
-                <div class="btn-row">
-                  <div class="btn alt">Pengaturan</div>
-                  <div class="btn">Keluar</div>
-                </div>
-                <div class="nav">
-                  <span>Home</span>
-                  <span>Dashboard</span>
-                  <span class="barcode">Barcode</span>
-                  <span class="active">Profil</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <div class="section-title">
-          <h2>Mobile Barcode Flow</h2>
-          <span class="hero-note">Scan TPH, capture photos, save offline, and sync to BPBKS and SPB.</span>
-        </div>
-        <div class="grid mobile stagger">
-          <div class="card">
-            <div class="screen">
-              <h3>Scan</h3>
-              <div class="bar"></div>
-              <div class="field" style="height: 120px; text-align: center;">QR View</div>
-              <div class="row"><span>Last scan</span><strong>PA21i010</strong></div>
-              <div class="row"><span>Status</span><span class="tag">Offline queued 3</span></div>
-              <div class="btn-row">
-                <div class="btn">Scan</div>
-                <div class="btn alt">Queue</div>
-              </div>
-              <div class="nav">
-                <span>Home</span>
-                <span>Dashboard</span>
-                <span class="barcode active">Barcode</span>
-                <span>Profil</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="screen">
-              <h3>Review & Input</h3>
-              <div class="row"><span>Blok</span><strong>A21i</strong></div>
-              <div class="row"><span>TPH</span><strong>010</strong></div>
-              <div class="row"><span>Tahun Tanam</span><strong>2015</strong></div>
-              <div class="field">Total JJG [ 120 ]</div>
-              <div class="field">Brondolan [ 8 ]</div>
-              <div class="field">Janjang Matang [ 60 ]</div>
-              <div class="field">Janjang Mentah [ 10 ]</div>
-              <div class="field">Janjang Lewat Matang [ 4 ]</div>
-              <div class="field">Janjang Busuk [ 1 ]</div>
-              <div class="attach-row">
-                <div class="attach"><div class="attach-icon">+</div> Foto Krani Panen</div>
-                <div class="attach"><div class="attach-icon">+</div> Foto Buah</div>
-              </div>
-              <div class="btn-row">
-                <div class="btn alt">Save Offline</div>
-                <div class="btn">Submit</div>
-              </div>
-              <div class="nav">
-                <span>Home</span>
-                <span>Dashboard</span>
-                <span class="barcode active">Barcode</span>
-                <span>Profil</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="screen">
-              <h3>Queue / Sync</h3>
-              <div class="list">
-                <div class="list-item">PA21i010 • JJG 120 <span class="badge">Pending</span></div>
-                <div class="list-item">PA21i011 • JJG 98 <span class="badge">Pending</span></div>
-                <div class="list-item">PA21i012 • JJG 75 <span class="badge">Failed</span></div>
-              </div>
-              <div class="btn-row">
-                <div class="btn">Sync All</div>
-                <div class="btn alt">Retry Failed</div>
-              </div>
-              <div class="nav">
-                <span>Home</span>
-                <span>Dashboard</span>
-                <span class="barcode active">Barcode</span>
-                <span>Profil</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="screen">
-              <h3>Tracking</h3>
-              <div class="field">Filter: Kebun, Divisi, Mandor, Status</div>
-              <div class="list">
-                <div class="list-item">PA21i010 • Synced <span class="badge">BPBKS#001</span></div>
-                <div class="list-item">PA21i011 • Restan <span class="badge">Waiting SPB</span></div>
-                <div class="list-item">PA21i012 • Pending <span class="badge">No signal</span></div>
-              </div>
-              <div class="nav">
-                <span>Home</span>
-                <span>Dashboard</span>
-                <span class="barcode active">Barcode</span>
-                <span>Profil</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+    <div class="summary-bar">
+      <div class="summary-item"><strong>1 App Lengkap</strong><span>Gambaran penuh aplikasi operasional lapangan.</span></div>
+      <div class="summary-item"><strong>6 Pecahan Kunci</strong><span>Fokus per proses untuk review cepat.</span></div>
+      <div class="summary-item"><strong>1 Alur End-to-End</strong><span>Panen → Validasi → Sync → Monitoring → Verifikasi.</span></div>
     </div>
-  </body>
+
+    <div class="grid">
+      <!-- ===== Device / prototype ===== -->
+      <div class="device main-device">
+        <div class="app">
+          <!-- Header stays, screens change -->
+          <div class="app-header">
+            <div class="header-top">
+              <div class="brand"><span class="mark">SAG</span> E-Plant</div>
+              <div class="chip" id="netChip"><span class="mini-dot"></span><span id="netLabel">Online</span> • <span id="queueCount">3</span> queued</div>
+            </div>
+            <div class="ctx">
+              <div>Role: <strong>Krani Panen</strong> • User: <strong>01250618750024</strong></div>
+              <div>Kebun: <strong>PT HSBS</strong> • Divisi: <strong>Inti</strong> • Afdeling: <strong>A</strong></div>
+            </div>
+            <div class="banner" id="banner">
+              <div><strong>Context</strong> bisa diganti per Kebun/Divisi/Afdeling. ✅</div>
+              <div class="link" onclick="toggleOffline()">Toggle Offline</div>
+            </div>
+          </div>
+
+          <div class="content">
+            <!-- ===== Screens ===== -->
+            <div class="screen active" id="home">
+              <div class="card">
+                <div class="title-row">
+                  <h2>Ringkasan Hari Ini</h2>
+                  <div class="link" onclick="go('dashboard')">Dashboard</div>
+                </div>
+                <div class="kpi">
+                  <div class="k"><div class="l">Target JJG</div><div class="v">1.250</div></div>
+                  <div class="k"><div class="l">Realisasi JJG</div><div class="v">860</div></div>
+                  <div class="k"><div class="l">Restan</div><div class="v">6</div></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="title-row"><h2>Modul</h2><div class="muted" style="font-size:11px;">Role-based</div></div>
+                <div class="modules">
+                  <div class="m" onclick="go('master')"><div class="ic md">MD</div><div class="lb">Master Data</div></div>
+                  <div class="m" onclick="go('rencana_module')"><div class="ic rk">RN</div><div class="lb">Rencana</div></div>
+                  <div class="m" onclick="go('absensi_module')"><div class="ic ab">AB</div><div class="lb">Absensi</div></div>
+                  <div class="m" onclick="go('panen_module')"><span class="badge">MVP</span><div class="ic pn">PN</div><div class="lb">Panen</div></div>
+                  <div class="m" onclick="go('rawat_module')"><div class="ic bk">RW</div><div class="lb">Rawat</div></div>
+                  <div class="m" onclick="go('laporan_module')"><div class="ic lp">LP</div><div class="lb">Laporan</div></div>
+                  <div class="m" onclick="go('berita_acara_module')"><div class="ic rk">BA</div><div class="lb">Berita Acara</div></div>
+                  <div class="m" onclick="go('tonase')"><div class="ic ap">SB</div><div class="lb">Scan Barcode</div></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="title-row"><h2>Aktivitas Terakhir</h2><div class="link" onclick="go('queue')">Lihat semua</div></div>
+                <div class="list">
+                  <div class="item"><div><strong>BKM Panen</strong> • A21i • HK 12</div><span class="status wait">Queued</span></div>
+                  <div class="item"><div><strong>BPBKS</strong> • No Potong 07 • Pemanen 0123</div><span class="status wait">Queued</span></div>
+                  <div class="item"><div><strong>BKM</strong> • A21i • Rawat • 18 HK</div><span class="status ok">Synced</span></div>
+                  <div class="item"><div><strong>Tonase</strong> • SPB-00018 • 7.820 Kg</div><span class="status bad">Failed</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="rencana_module">
+              <div class="card">
+                <div class="title-row"><h2>Modul Rencana</h2><div class="link" onclick="go('home')">Kembali</div></div>
+                <div class="field"><span>Sub-modul</span><span class="v">AKP, Taksasi, Sensus, RKH</span></div>
+                <div class="actions">
+                  <div class="action">AKP <span>/plan/akp-list</span></div>
+                  <div class="action">Taksasi <span>/plan/taxation-list</span></div>
+                  <div class="action">Sensus <span>/plan/census-list</span></div>
+                  <div class="action">RKH <span>/plan/rkh-list</span></div>
+                  <div class="action" onclick="go('bpbks_list')">BPBKS (mobile cross-route) <span>/plan/bpbks-list</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="absensi_module">
+              <div class="card">
+                <div class="title-row"><h2>Modul Absensi</h2><div class="link" onclick="go('home')">Kembali</div></div>
+                <div class="field"><span>Sub-modul</span><span class="v">Absensi Karyawan</span></div>
+                <div class="actions">
+                  <div class="action">Absensi Harian <span>/attendance/attendance-list</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="panen_module">
+              <div class="card">
+                <div class="title-row"><h2>Modul Panen</h2><div class="link" onclick="go('home')">Kembali</div></div>
+                <div class="field"><span>Sub-modul</span><span class="v">urutan mengikuti web sidebar production</span></div>
+                <div class="actions">
+                  <div class="action" onclick="go('panen_list')">BKM Panen <span>/harvest/bkm</span></div>
+                  <div class="action" onclick="go('pma_entry')">PMA <span>/harvest/pma</span></div>
+                  <div class="action" onclick="go('bpbks_list')">BPBKS <span>web: HARVEST • mobile: PLAN (cross-route)</span></div>
+                  <div class="action" onclick="go('spb_entry')">Surat Pengantar Buah <span>/harvest/spb</span></div>
+                  <div class="action" onclick="go('tonase')">Tonase Kebun <span>/harvest/garden-tonnage</span></div>
+                  <div class="action" onclick="go('tonase')">Tonase PKS <span>/harvest/pks-tonnage</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="rawat_module">
+              <div class="card">
+                <div class="title-row"><h2>Modul Rawat</h2><div class="link" onclick="go('home')">Kembali</div></div>
+                <div class="field"><span>Sub-modul</span><span class="v">dibuka setelah masuk modul Rawat</span></div>
+                <div class="actions">
+                  <div class="action" onclick="go('bkm_list')">BKM Rawat <span>Input kegiatan rawat harian</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="laporan_module">
+              <div class="card">
+                <div class="title-row"><h2>Modul Laporan</h2><div class="link" onclick="go('home')">Kembali</div></div>
+                <div class="field"><span>Sub-modul utama</span><span class="v">mengikuti sidebar web</span></div>
+                <div class="actions">
+                  <div class="action">AKP <span>/report/akp-report</span></div>
+                  <div class="action">Yield <span>/report/yield-report</span></div>
+                  <div class="action">R-PMB <span>/report/r-pmb</span></div>
+                  <div class="action">R-PMA <span>/report/r-pma</span></div>
+                  <div class="action">Tonase Kebun <span>/report/tonnage-garden</span></div>
+                  <div class="action">Tonase PKS <span>/report/tonnage-pks</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="berita_acara_module">
+              <div class="card">
+                <div class="title-row"><h2>Modul Berita Acara</h2><div class="link" onclick="go('home')">Kembali</div></div>
+                <div class="field"><span>Sub-modul</span><span class="v">Field Report</span></div>
+                <div class="actions">
+                  <div class="action">Daftar Berita Acara <span>/field-report/field-report-list</span></div>
+                  <div class="action">Buat Berita Acara <span>/field-report/field-report-form</span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="dashboard">
+              <div class="card">
+                <div class="title-row">
+                  <h2>Dashboard</h2>
+                  <div class="link" onclick="go('home')">Kembali</div>
+                </div>
+                <div class="field"><span>Filter</span><span class="v">Kebun/Divisi/Afd • Feb 2026</span></div>
+                <div class="field"><span>Tonase Kebun (bulan)</span><span class="v">1.165.200 Kg</span></div>
+                <div class="field"><span>Tonase PKS (bulan)</span><span class="v">1.102.450 Kg</span></div>
+                <div class="field"><span>ACV Produksi</span><span class="v">182,40%</span></div>
+              </div>
+
+              <div class="card">
+                <div class="title-row"><h2>Chart Dashboard (Legacy Real)</h2><div class="muted" style="font-size:11px;">metabase slug-based</div></div>
+
+                <div class="chart-card">
+                  <div class="chart-title">total-produksi • Total Produksi Bulanan</div>
+                  <div class="legend"><span class="a">Tonase Kebun</span><span class="b">Tonase PKS</span></div>
+                  <div class="mini-bars"><span style="height:28px"></span><span style="height:44px"></span><span style="height:34px"></span><span style="height:50px"></span><span style="height:32px"></span><span style="height:46px"></span><span style="height:40px"></span></div>
+                </div>
+
+                <div class="chart-card">
+                  <div class="chart-title">yield • Yield Bulanan</div>
+                  <div class="legend"><span class="a">Budget Yield</span><span class="b">Real Yield</span></div>
+                  <div class="mini-bars"><span style="height:30px"></span><span style="height:38px"></span><span style="height:26px"></span><span style="height:42px"></span><span style="height:30px"></span><span style="height:44px"></span><span style="height:34px"></span></div>
+                </div>
+
+                <div class="chart-card">
+                  <div class="chart-title">akp • AKP Bulanan</div>
+                  <div class="legend"><span class="c">Rencana</span><span class="d">Realisasi</span></div>
+                  <div class="mini-bars"><span style="height:20px"></span><span style="height:36px"></span><span style="height:24px"></span><span style="height:40px"></span><span style="height:26px"></span><span style="height:42px"></span><span style="height:30px"></span></div>
+                </div>
+
+                <div class="chart-card">
+                  <div class="chart-title">bjr • BJR per Blok</div>
+                  <div class="legend"><span class="a">BJR (kg)</span></div>
+                  <div class="mini-bars"><span style="height:34px"></span><span style="height:36px"></span><span style="height:28px"></span><span style="height:40px"></span><span style="height:30px"></span><span style="height:42px"></span><span style="height:32px"></span></div>
+                </div>
+
+                <div class="chart-card">
+                  <div class="chart-title">refraksi-pks • Dashboard Refraksi</div>
+                  <div class="legend"><span class="a">Refraksi Kg</span><span class="b">Refraksi %</span></div>
+                  <div class="mini-bars"><span style="height:18px"></span><span style="height:30px"></span><span style="height:20px"></span><span style="height:34px"></span><span style="height:22px"></span><span style="height:36px"></span><span style="height:24px"></span></div>
+                </div>
+
+                <div class="chart-card">
+                  <div class="chart-title">pmb / bpbks • BPBKS Bulanan</div>
+                  <div class="legend"><span class="a">Matang</span><span class="b">Mentah</span><span class="c">Lewat</span><span class="d">Busuk</span></div>
+                  <div class="mini-bars"><span style="height:26px"></span><span style="height:40px"></span><span style="height:22px"></span><span style="height:34px"></span><span style="height:24px"></span><span style="height:42px"></span><span style="height:28px"></span></div>
+                </div>
+
+                <div class="chart-card">
+                  <div class="chart-title">kualitas-buah-per-blok • Kualitas Buah per Blok</div>
+                  <div class="legend"><span class="a">Matang</span><span class="b">Mentah</span></div>
+                  <div class="mini-bars"><span style="height:24px"></span><span style="height:38px"></span><span style="height:26px"></span><span style="height:36px"></span><span style="height:28px"></span><span style="height:40px"></span><span style="height:30px"></span></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="pma_entry">
+              <div class="card">
+                <div class="title-row"><h2>Form PMA</h2><div class="muted" style="font-size:11px;">model: pmas</div></div>
+                <div class="field"><span>Divisi</span><span class="v">Inti</span></div>
+                <div class="field"><span>Tanggal PMA (datePma)</span><span class="v">19 Feb 2026</span></div>
+                <div class="field"><span>Mandor Panen (foremanPma)</span><span class="v">NIP 0901</span></div>
+                <div class="field"><span>Karyawan PMA (pmaEmployees)</span><span class="v">+ pilih karyawan</span></div>
+                <div class="btns">
+                  <div class="btn alt" onclick="saveOffline()">Save Draft</div>
+                  <div class="btn" onclick="submitData()">Submit</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="spb_entry">
+              <div class="card">
+                <div class="title-row"><h2>Form SPB</h2><div class="muted" style="font-size:11px;">model: spbs</div></div>
+                <div class="field"><span>Tanggal</span><span class="v">19 Feb 2026</span></div>
+                <div class="field"><span>Organisasi</span><span class="v">PT HSBS</span></div>
+                <div class="field"><span>PKS Tujuan (pksName)</span><span class="v">PKS HSBS Mill 1</span></div>
+                <div class="field"><span>Jenis Angkutan (transportType)</span><span class="v">DALAM</span></div>
+                <div class="field"><span>Kendaraan (item)</span><span class="v">BE 8123 XX</span></div>
+                <div class="field"><span>Supir (driver)</span><span class="v">Jaya</span></div>
+                <div class="field"><span>No PO/DO (po = Garden Tonnage)</span><span class="v">PO-1203</span></div>
+                <div class="field"><span>Keterangan</span><span class="v">Angkut pagi</span></div>
+                <div class="title-row" style="margin-top:12px;"><h2>Detail Blok SPB</h2><div class="muted" style="font-size:11px;">spbBlocks[]</div></div>
+                <div class="field"><span>Blok</span><span class="v">A21i</span></div>
+                <div class="field"><span>Total Janjang</span><span class="v">120</span></div>
+                <div class="field"><span>Brondolan</span><span class="v">8</span></div>
+                <div class="field"><span>Handling/unit & Lansiran</span><span class="v">0,0 / 0,0</span></div>
+                <div class="btns">
+                  <div class="btn alt" onclick="saveOffline()">Save Draft</div>
+                  <div class="btn" onclick="submitData()">Submit</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="bpbks_list">
+              <div class="card">
+                <div class="title-row"><h2>BPBKS</h2><div class="link" onclick="go('bpbks_entry')">+ Input</div></div>
+                <div class="field"><span>Filter</span><span class="v">Tanggal • Divisi • Pemanen</span></div>
+                <div class="list">
+                  <div class="item" onclick="go('bpbks_entry')"><div><strong>BPBKS-0192</strong> • Potong 07 • A21i</div><span class="status wait">Queued</span></div>
+                  <div class="item"><div><strong>BPBKS-0191</strong> • Potong 05 • A21j</div><span class="status ok">Synced</span></div>
+                  <div class="item"><div><strong>BPBKS-0190</strong> • Potong 04 • A22a</div><span class="status bad">Need Fix</span></div>
+                </div>
+                <div class="btns">
+                  <div class="btn" onclick="go('bpbks_entry')">Input BPBKS</div>
+                  <div class="btn alt" onclick="go('queue')">Lihat Queue</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="bpbks_entry">
+              <div class="card">
+                <div class="title-row"><h2>Form BPBKS</h2><div class="muted" style="font-size:11px;">script fields</div></div>
+                <div class="field"><span>Organisasi</span><span class="v">PT HSBS</span></div>
+                <div class="field"><span>Tanggal</span><span class="v">19 Feb 2026</span></div>
+                <div class="field"><span>Divisi</span><span class="v">Inti</span></div>
+                <div class="field"><span>Mandor</span><span class="v">NIP 0901</span></div>
+                <div class="field"><span>Pemanen</span><span class="v">NIP 0123</span></div>
+                <div class="field"><span>No. Potong</span><span class="v">07</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Detail TPH</h2><div class="muted" style="font-size:11px;">tphs[]</div></div>
+                <div class="field"><span>TPH</span><span class="v">A21i/010</span></div>
+                <div class="field"><span>Janjang (numberOfLength)</span><span class="v">120</span></div>
+                <div class="field"><span>Brondolan (loose)</span><span class="v">8</span></div>
+                <div class="field"><span>Matang / Mentah / Lewat / Busuk</span><span class="v">60 / 10 / 4 / 1</span></div>
+                <div class="field"><span>Tangkai Panjang / Brondolan Check</span><span class="v">3 / 5</span></div>
+                <div class="field"><span>Tahun Tanam</span><span class="v">2015</span></div>
+
+                <div class="btns">
+                  <div class="btn alt" onclick="saveOffline()">Save Draft</div>
+                  <div class="btn" onclick="submitData()">Submit</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="panen_list">
+              <div class="card">
+                <div class="title-row"><h2>Panen</h2><div class="link" onclick="go('panen_entry')">+ Input</div></div>
+                <div class="field"><span>Filter</span><span class="v">Tanggal • Mandor • Status</span></div>
+                <div class="list">
+                  <div class="item" onclick="go('panen_entry')"><div><strong>PA21i010</strong> • JJG 120 • Brd 8</div><span class="status wait">Queued</span></div>
+                  <div class="item"><div><strong>PA21i011</strong> • JJG 98 • Brd 5</div><span class="status ok">Synced</span></div>
+                  <div class="item"><div><strong>PA21i012</strong> • JJG 75 • Brd 2</div><span class="status bad">Failed</span></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="title-row"><h2>Restan</h2><div class="muted" style="font-size:11px;">follow-up</div></div>
+                <div class="field"><span>Restan TPH</span><span class="v">6 titik</span></div>
+                <div class="field"><span>Estimasi tonase</span><span class="v">1.320 Kg</span></div>
+              </div>
+            </div>
+
+            <div class="screen" id="panen_entry">
+              <div class="card">
+                <div class="title-row"><h2>Form BKM Panen</h2><div class="muted" style="font-size:11px;">sesuai validasi</div></div>
+
+                <div class="stepper" aria-label="stepper">
+                  <div class="step"><i id="s1" style="width:100%"></i></div>
+                  <div class="step"><i id="s2" style="width:45%"></i></div>
+                  <div class="step"><i id="s3" style="width:0%"></i></div>
+                </div>
+
+                <div class="field"><span>Organisasi</span><span class="v">PT HSBS</span></div>
+                <div class="field"><span>Tanggal</span><span class="v">19 Feb 2026</span></div>
+                <div class="field"><span>Divisi</span><span class="v">Inti</span></div>
+                <div class="field"><span>Supervisi</span><span class="v">Afd A</span></div>
+                <div class="field"><span>Status Kerja</span><span class="v">Harian</span></div>
+                <div class="field"><span>Jenis Karyawan</span><span class="v">SKU</span></div>
+                <div class="field"><span>Hari Kerja</span><span class="v">HK-1</span></div>
+                <div class="field"><span>NIP</span><span class="v">0123</span></div>
+                <div class="field"><span>Sub Aktivitas</span><span class="v">Panen Reguler</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Hasil</h2><div class="muted" style="font-size:11px;">JJG & kualitas</div></div>
+                <div class="field"><span>Total JJG</span><span class="v">120</span></div>
+                <div class="field"><span>Brondolan</span><span class="v">8</span></div>
+                <div class="field"><span>Matang</span><span class="v">60</span></div>
+                <div class="field"><span>Mentah</span><span class="v">10</span></div>
+                <div class="field"><span>Lewat Matang</span><span class="v">4</span></div>
+                <div class="field"><span>Busuk</span><span class="v">1</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Tonase (opsional)</h2><div class="muted" style="font-size:11px;">pre-angkut</div></div>
+                <div class="field"><span>BJR (estimasi)</span><span class="v">18,5 Kg</span></div>
+                <div class="field"><span>Estimasi Tonase</span><span class="v">2.220 Kg</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Lampiran (MVP)</h2><div class="muted" style="font-size:11px;">2 foto wajib</div></div>
+                <div class="field"><span>Foto Krani</span><span class="v">+ ambil</span></div>
+                <div class="field"><span>Foto Buah</span><span class="v">+ ambil</span></div>
+                <div class="textarea">Catatan (optional): kondisi jalan, TPH penuh, dll.</div>
+
+                <div class="btns">
+                  <div class="btn alt" onclick="saveOffline()">Save Offline</div>
+                  <div class="btn" onclick="submitData()">Submit</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="bkm_list">
+              <div class="card">
+                <div class="title-row"><h2>BKM Rawat</h2><div class="link" onclick="go('bkm_entry')">+ Buat</div></div>
+                <div class="field"><span>Filter</span><span class="v">Tanggal • Kegiatan • Status</span></div>
+                <div class="list">
+                  <div class="item" onclick="go('bkm_entry')"><div><strong>BKM-00021</strong> • Rawat • 18 HK</div><span class="status ok">Approved</span></div>
+                  <div class="item"><div><strong>BKM-00022</strong> • Rawat • 12 HK</div><span class="status wait">Draft</span></div>
+                  <div class="item"><div><strong>BKM-00023</strong> • Semprot • 9 HK</div><span class="status bad">Rejected</span></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="title-row"><h2>Template Kegiatan</h2><div class="muted" style="font-size:11px;">standardisasi</div></div>
+                <div class="textarea">
+                  Disarankan: daftar master “Jenis Kegiatan” + default field per kegiatan (Rawat, Semprot, Panen, Angkut, dll) supaya input cepat & konsisten.
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="bkm_entry">
+              <div class="card">
+                <div class="title-row"><h2>Form BKM Rawat</h2><div class="muted" style="font-size:11px;">harian</div></div>
+                <div class="field"><span>Organisasi</span><span class="v">PT HSBS</span></div>
+                <div class="field"><span>Tanggal</span><span class="v">19 Feb 2026</span></div>
+                <div class="field"><span>Divisi</span><span class="v">Inti</span></div>
+                <div class="field"><span>Supervisi</span><span class="v">Afd A</span></div>
+                <div class="field"><span>Status Kerja</span><span class="v">Rawat</span></div>
+                <div class="field"><span>Sub Aktivitas</span><span class="v">Semprot Gulma</span></div>
+                <div class="field"><span>Jenis Karyawan</span><span class="v">BHL</span></div>
+                <div class="field"><span>NIP Pelaksana</span><span class="v">0091</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Tenaga Kerja</h2><div class="muted" style="font-size:11px;">HK & regu</div></div>
+                <div class="field"><span>Jumlah HK</span><span class="v">12</span></div>
+                <div class="field"><span>Regu / Anggota</span><span class="v">+ pilih</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Output</h2><div class="muted" style="font-size:11px;">result</div></div>
+                <div class="field"><span>JJG (total)</span><span class="v">860</span></div>
+                <div class="field"><span>Brondolan</span><span class="v">55</span></div>
+                <div class="field"><span>Tonase (estimasi)</span><span class="v">15.910 Kg</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Catatan</h2><div class="muted" style="font-size:11px;">kendala</div></div>
+                <div class="textarea">Contoh: hujan 2 jam, alat rusak, akses TPH terhambat, dll.</div>
+
+                <div class="btns">
+                  <div class="btn alt" onclick="saveOffline()">Save Draft</div>
+                  <div class="btn" onclick="go('approvals')">Kirim untuk Verifikasi</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="tonase">
+              <div class="card">
+                <div class="title-row"><h2>Scan Barcode TPH</h2><div class="muted" style="font-size:11px;">alur ringkas</div></div>
+                <div style="margin:10px 0 12px; border:1px solid var(--line); border-radius:14px; overflow:hidden; background:#0B0B0B;">
+                  <img src="./assets/contoh-barcode.jpeg" alt="Contoh barcode TPH" style="width:100%; display:block;" />
+                </div>
+                <div class="field"><span>Mode normal (online/offline-queue)</span><span class="v">Krani scan barcode TPH → data TPH muncul → input total janjang</span></div>
+                <div class="field"><span>Validasi panen (wajib)</span><span class="v">Ambil Foto Krani + Foto Buah sebelum push ke SPB</span></div>
+                <div class="field"><span>Lanjut proses</span><span class="v">Data dipush ke SPB untuk Krani Timbang di penimbangan</span></div>
+                <div class="field"><span>Konfirmasi pengambilan</span><span class="v">Truk scan barcode yang sama saat buah diambil</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Bukti Validasi Panen</h2><div class="muted" style="font-size:11px;">foto wajib</div></div>
+                <div class="field"><span>Foto Krani</span><span class="v"><span id="fotoKraniText">Belum diambil</span> • <span id="fotoKraniStatus" class="status bad">Belum Valid</span> • <span id="fotoKraniTime">-</span></span></div>
+                <div class="field"><span>Foto Buah</span><span class="v"><span id="fotoBuahText">Belum diambil</span> • <span id="fotoBuahStatus" class="status bad">Belum Valid</span> • <span id="fotoBuahTime">-</span></span></div>
+                <div class="field"><span>Status Validasi Panen</span><span class="v"><span id="validasiPanenStatus" class="status wait">Belum Lengkap</span></span></div>
+                <div class="btns">
+                  <div class="btn alt" onclick="captureFotoKrani()">Ambil Foto Krani</div>
+                  <div class="btn alt" onclick="captureFotoBuah()">Ambil Foto Buah</div>
+                  <div class="btn" onclick="scanBarcodeKrani()">Scan Barcode TPH (Krani Panen)</div>
+                  <div class="btn alt" onclick="scanBarcodeTruk()">Scan Barcode Pengambilan (Truk)</div>
+                </div>
+                <div class="textarea"><strong>Fallback saat jaringan buruk:</strong> barcode dipakai untuk validasi krani panen dulu (local/offline queue), sedangkan truk tetap pakai docket manual. Setelah sinyal tersedia dan sync berhasil, barcode siap menggantikan docket manual bertahap.</div>
+              </div>
+
+              <div class="card">
+                <div class="title-row"><h2>Tonase Kebun</h2><div class="muted" style="font-size:11px;">TONNAGE_GARDEN_FORM</div></div>
+                <div class="field"><span>No. Nota (PO/DO)</span><span class="v">PO-1203 • <span class="status ok">Auto dari cache lokal</span></span></div>
+                <div class="field"><span>Tanggal</span><span class="v">19 Feb 2026 • <span class="status wait">Input manual</span></span></div>
+                <div class="field"><span>Organisasi</span><span class="v">PT HSBS • <span class="status ok">Auto dari cache lokal</span></span></div>
+                <div class="field"><span>Supir</span><span class="v">Jaya • <span class="status ok">Auto dari cache lokal</span></span></div>
+                <div class="field"><span>No. Kendaraan</span><span class="v">BE 8123 XX • <span class="status ok">Auto dari cache lokal</span></span></div>
+                <div class="field"><span>Gross / Tare / Netto</span><span class="v">10.200 / 2.380 / 7.820</span></div>
+                <div class="field"><span>Blok & Total Janjang</span><span class="v">A21i(120), A21j(98) • <span class="status ok">Auto dari scan TPH</span></span></div>
+                <div class="field"><span>BJR (auto)</span><span class="v">18,52</span></div>
+
+                <div class="title-row" style="margin-top:12px;"><h2>Tonase PKS</h2><div class="muted" style="font-size:11px;">TONNAGE_PKS_FORM</div></div>
+                <div class="field"><span>Organisasi</span><span class="v">PT HSBS • <span class="status ok">Auto dari cache lokal</span></span></div>
+                <div class="field"><span>No Kendaraan + No Nota SPB</span><span class="v">BE 8123 XX • SPB-00018 • <span class="status ok">Auto dari SPB</span></span></div>
+                <div class="field"><span>Keputusan</span><span class="v">Diterima • <span class="status wait">Input manual</span></span></div>
+                <div class="field"><span>Gross / Tare / Netto 1</span><span class="v">10.080 / 2.440 / 7.640</span></div>
+                <div class="field"><span>Refraksi (Kg / %)</span><span class="v">176 / 2,30%</span></div>
+                <div class="field"><span>Netto 2</span><span class="v">7.464</span></div>
+                <div class="field"><span>Mutu buah (Tenera, Dura, Mengkal, Mentah, dll)</span><span class="v">Input wajib saat diterima</span></div>
+
+                <div class="btns">
+                  <div class="btn alt" onclick="saveOffline()">Save Offline</div>
+                  <div class="btn" onclick="submitData()">Submit</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="approvals">
+              <div class="card">
+                <div class="title-row"><h2>Verifikasi</h2><div class="muted" style="font-size:11px;">workflow</div></div>
+                <div class="field"><span>Filter</span><span class="v">Modul • Status • Tanggal</span></div>
+                <div class="list">
+                  <div class="item"><div><strong>BKM-00022</strong> • Panen • 12 HK</div><span class="status wait">Waiting</span></div>
+                  <div class="item"><div><strong>SPB-00018</strong> • Tonase 7.820 Kg</div><span class="status wait">Waiting</span></div>
+                  <div class="item"><div><strong>PA21i012</strong> • Panen • JJG 75</div><span class="status bad">Need Fix</span></div>
+                  <div class="item"><div><strong>PA21i011</strong> • Panen • JJG 98</div><span class="status ok">Approved</span></div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="title-row"><h2>Detail Verifikasi</h2><div class="muted" style="font-size:11px;">screen</div></div>
+                <div class="textarea">
+                  Di aplikasi real: buka detail → tampilkan field + lampiran + riwayat verifikasi (mandor → asisten → admin),
+                  lalu action: <strong>Approve / Reject / Request Changes</strong>.
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="queue">
+              <div class="card">
+                <div class="title-row"><h2>Antrian Sync</h2><div class="muted" style="font-size:11px;">offline-first</div></div>
+                <div class="list">
+                  <div class="item"><div><strong>PA21i010</strong> • Panen • JJG 120</div><span class="status wait">Queued</span></div>
+                  <div class="item"><div><strong>SPB-00018</strong> • Tonase 7.820 Kg</div><span class="status bad">Failed</span></div>
+                  <div class="item"><div><strong>BKM-00022</strong> • Draft</div><span class="status wait">Queued</span></div>
+                </div>
+                <div class="btns">
+                  <div class="btn" onclick="syncAll()">Sync All</div>
+                  <div class="btn alt" onclick="retryFailed()">Retry Failed</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="screen" id="master">
+              <div class="card">
+                <div class="title-row"><h2>Master Data (mobile)</h2><div class="muted" style="font-size:11px;">limited</div></div>
+                <div class="textarea">
+                  Sinkron dengan script: mobile tetap untuk <strong>lookup</strong> & <strong>cache offline</strong>,
+                  mencakup Divisi, Blok, TPH, Karyawan, Kendaraan, Item/Material. CRUD lengkap tetap di web.
+                </div>
+                <div class="field"><span>Sync master terakhir</span><span class="v">18 Feb 2026 • 21:12</span></div>
+              </div>
+            </div>
+
+            <div class="screen" id="profile">
+              <div class="card">
+                <div class="title-row"><h2>Profil</h2><div class="muted" style="font-size:11px;">user</div></div>
+                <div class="field"><span>NIP</span><span class="v">01250618750024</span></div>
+                <div class="field"><span>Nama</span><span class="v">Super Admin</span></div>
+                <div class="field"><span>Departemen</span><span class="v">R&amp;D Agronomi</span></div>
+                <div class="field"><span>Email</span><span class="v">staf.agronomi@sahabatagro.co.id</span></div>
+                <div class="btns">
+                  <div class="btn alt" onclick="go('home')">Pengaturan</div>
+                  <div class="btn" onclick="go('home')">Keluar</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- FAB -->
+          <div class="fab" onclick="go('bpbks_entry')" title="BPBKS">✓</div>
+
+          <!-- Bottom Nav -->
+          <div class="nav" id="nav">
+            <div class="n active" data-to="home" onclick="navGo(this)">Home</div>
+            <div class="n" data-to="dashboard" onclick="navGo(this)">Dashboard</div>
+            <div class="n" data-to="tonase" onclick="navGo(this)">Barcode</div>
+            <div class="n" data-to="profile" onclick="navGo(this)">Profil</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Mockup pecahan (di luar app utama) ===== -->
+      <div class="split-title"><strong>Pecahan Mockup (Visual)</strong> • Ringkas, visual-dominan, siap untuk presentasi manajemen.</div>
+      <div class="flow-legend" aria-label="alur end-to-end mockup">
+        <div class="flow-step"><b>1</b> Home & Modul</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>2</b> Sub-modul Panen</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>3</b> Scan + Validasi</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>4</b> Offline Queue</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>5</b> Dashboard KPI</div><span class="flow-arrow">→</span>
+        <div class="flow-step"><b>6</b> Verifikasi</div>
+      </div>
+
+      <div class="split-grid">
+        <div class="device mini">
+          <div class="app">
+            <div class="app-header">
+              <div class="header-top">
+                <div class="brand"><span class="mark">SAG</span> Home Modul</div>
+                <div class="chip"><span class="mini-dot"></span>Online</div>
+              </div>
+            </div>
+            <div class="content mini-content">
+              <div class="card">
+                <div class="title-row"><h2>Pecahan 1 — Home & Modul Utama</h2></div>
+                <div class="modules">
+                  <div class="m"><div class="ic rk">RN</div><div class="lb">Rencana</div></div>
+                  <div class="m"><div class="ic pn">PN</div><div class="lb">Panen</div></div>
+                  <div class="m"><div class="ic bk">RW</div><div class="lb">Rawat</div></div>
+                  <div class="m"><div class="ic lp">LP</div><div class="lb">Laporan</div></div>
+                  <div class="m"><div class="ic ap">SB</div><div class="lb">Scan Barcode</div></div>
+                  <div class="m"><div class="ic md">MD</div><div class="lb">Master Data</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="device mini">
+          <div class="app">
+            <div class="app-header">
+              <div class="header-top">
+                <div class="brand"><span class="mark">SAG</span> Panen</div>
+                <div class="chip"><span class="mini-dot"></span>Online</div>
+              </div>
+            </div>
+            <div class="content mini-content">
+              <div class="card">
+                <div class="title-row"><h2>Pecahan 2 — Pilih Sub-modul Panen</h2></div>
+                <div class="actions">
+                  <div class="action">BKM <span>/harvest/bkm</span></div>
+                  <div class="action">PMA <span>/harvest/pma</span></div>
+                  <div class="action">BPBKS <span>cross-route PLAN</span></div>
+                  <div class="action">SPB <span>/harvest/spb</span></div>
+                  <div class="action">Tonase Kebun <span>garden-tonnage</span></div>
+                  <div class="action">Tonase PKS <span>pks-tonnage</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="device mini">
+          <div class="app">
+            <div class="app-header">
+              <div class="header-top">
+                <div class="brand"><span class="mark">SAG</span> Barcode</div>
+                <div class="chip offline"><span class="mini-dot"></span>Offline</div>
+              </div>
+            </div>
+            <div class="content mini-content">
+              <div class="card">
+                <div class="title-row"><h2>Pecahan 3 — Scan Barcode & Validasi</h2></div>
+                <div class="slide-img"><img src="./assets/contoh-barcode.jpeg" alt="Contoh barcode" /></div>
+                <div class="field"><span>Foto Krani</span><span class="v"><span class="status ok">Valid</span></span></div>
+                <div class="field"><span>Foto Buah</span><span class="v"><span class="status ok">Valid</span></span></div>
+                <div class="field"><span>Status</span><span class="v"><span class="status ok">Lengkap</span></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="device mini">
+          <div class="app">
+            <div class="app-header">
+              <div class="header-top">
+                <div class="brand"><span class="mark">SAG</span> Queue Sync</div>
+                <div class="chip offline"><span class="mini-dot"></span>Offline</div>
+              </div>
+            </div>
+            <div class="content mini-content">
+              <div class="card">
+                <div class="title-row"><h2>Pecahan 4 — Offline Queue & Sync</h2></div>
+                <div class="list">
+                  <div class="item"><div><strong>PA21i010</strong> • Panen</div><span class="status wait">Queued</span></div>
+                  <div class="item"><div><strong>SPB-00018</strong> • Tonase</div><span class="status bad">Failed</span></div>
+                  <div class="item"><div><strong>BKM-00022</strong> • Draft</div><span class="status wait">Queued</span></div>
+                </div>
+                <div class="btns">
+                  <div class="btn">Sync All</div>
+                  <div class="btn alt">Retry</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="device mini">
+          <div class="app">
+            <div class="app-header">
+              <div class="header-top">
+                <div class="brand"><span class="mark">SAG</span> Dashboard</div>
+                <div class="chip"><span class="mini-dot"></span>Online</div>
+              </div>
+            </div>
+            <div class="content mini-content">
+              <div class="card">
+                <div class="title-row"><h2>Pecahan 5 — Monitoring KPI Dashboard</h2></div>
+                <div class="slide-img"><img src="./assets/audience-dashboard.jpeg" alt="Dashboard ringkas" /></div>
+                <div class="kpi">
+                  <div class="k"><div class="l">Tonase Kebun</div><div class="v">1.165.200</div></div>
+                  <div class="k"><div class="l">Tonase PKS</div><div class="v">1.102.450</div></div>
+                  <div class="k"><div class="l">ACV</div><div class="v">182,40%</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="device mini">
+          <div class="app">
+            <div class="app-header">
+              <div class="header-top">
+                <div class="brand"><span class="mark">SAG</span> Verifikasi</div>
+                <div class="chip"><span class="mini-dot"></span>Online</div>
+              </div>
+            </div>
+            <div class="content mini-content">
+              <div class="card">
+                <div class="title-row"><h2>Pecahan 6 — Verifikasi Akhir</h2></div>
+                <div class="list">
+                  <div class="item"><div><strong>BKM-00022</strong> • Panen</div><span class="status wait">Waiting</span></div>
+                  <div class="item"><div><strong>SPB-00018</strong> • Tonase</div><span class="status wait">Waiting</span></div>
+                  <div class="item"><div><strong>PA21i011</strong> • Panen</div><span class="status ok">Approved</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const screens = ["home","dashboard","rencana_module","absensi_module","panen_module","rawat_module","laporan_module","berita_acara_module","bpbks_list","bpbks_entry","pma_entry","spb_entry","panen_list","panen_entry","bkm_list","bkm_entry","tonase","approvals","queue","master","profile"];
+    let offline = false;
+    let queued = 3;
+    let fotoKraniDone = false;
+    let fotoBuahDone = false;
+    let fotoKraniAt = null;
+    let fotoBuahAt = null;
+
+    function go(id){
+      for(const s of screens){
+        const el = document.getElementById(s);
+        if(el) el.classList.toggle("active", s === id);
+      }
+      // nav highlight (best-effort)
+      const nav = document.getElementById("nav");
+      [...nav.querySelectorAll(".n")].forEach(n => n.classList.remove("active"));
+      const pick = [...nav.querySelectorAll(".n")].find(n => n.dataset.to === id);
+      if(pick) pick.classList.add("active");
+      // status queue mengikuti state online/offline
+    }
+
+    function navGo(el){
+      const id = el.dataset.to;
+      go(id);
+    }
+
+    function toggleOffline(){
+      offline = !offline;
+      const chip = document.getElementById("netChip");
+      const label = document.getElementById("netLabel");
+      const q = document.getElementById("queueCount");
+      chip.classList.toggle("offline", offline);
+      label.textContent = offline ? "Offline" : "Online";
+      q.textContent = queued;
+      go(document.querySelector(".screen.active")?.id || "home");
+    }
+
+    function saveOffline(){
+      queued += 1;
+      document.getElementById("queueCount").textContent = queued;
+      go("queue");
+    }
+
+    function submitData(){
+      // mock behavior: online -> decrease queue, offline -> add queue
+      if(offline){
+        queued += 1;
+      } else {
+        queued = Math.max(0, queued - 1);
+      }
+      document.getElementById("queueCount").textContent = queued;
+      go("queue");
+    }
+
+    function syncAll(){
+      if(offline){ alert("Masih offline. Nyalakan koneksi dulu (Toggle Offline)."); return; }
+      queued = 0;
+      document.getElementById("queueCount").textContent = queued;
+      alert("Sync selesai.");
+      go("home");
+    }
+
+    function retryFailed(){
+      if(offline){ alert("Masih offline. Nyalakan koneksi dulu (Toggle Offline)."); return; }
+      alert("Retry data gagal.");
+    }
+
+    function formatWaktu(value){
+      if(!value) return "-";
+      const d = new Date(value);
+      return d.toLocaleString('id-ID', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function renderValidasiPanen(){
+      const fotoKraniText = document.getElementById("fotoKraniText");
+      const fotoKraniStatus = document.getElementById("fotoKraniStatus");
+      const fotoKraniTime = document.getElementById("fotoKraniTime");
+      const fotoBuahText = document.getElementById("fotoBuahText");
+      const fotoBuahStatus = document.getElementById("fotoBuahStatus");
+      const fotoBuahTime = document.getElementById("fotoBuahTime");
+      const validasiPanenStatus = document.getElementById("validasiPanenStatus");
+
+      if(fotoKraniText && fotoKraniStatus){
+        fotoKraniText.textContent = fotoKraniDone ? "Sudah diambil" : "Belum diambil";
+        fotoKraniStatus.textContent = fotoKraniDone ? "Valid" : "Belum Valid";
+        fotoKraniStatus.className = fotoKraniDone ? "status ok" : "status bad";
+      }
+      if(fotoKraniTime){
+        fotoKraniTime.textContent = formatWaktu(fotoKraniAt);
+      }
+
+      if(fotoBuahText && fotoBuahStatus){
+        fotoBuahText.textContent = fotoBuahDone ? "Sudah diambil" : "Belum diambil";
+        fotoBuahStatus.textContent = fotoBuahDone ? "Valid" : "Belum Valid";
+        fotoBuahStatus.className = fotoBuahDone ? "status ok" : "status bad";
+      }
+      if(fotoBuahTime){
+        fotoBuahTime.textContent = formatWaktu(fotoBuahAt);
+      }
+
+      if(validasiPanenStatus){
+        const lengkap = fotoKraniDone && fotoBuahDone;
+        validasiPanenStatus.textContent = lengkap ? "Lengkap" : "Belum Lengkap";
+        validasiPanenStatus.className = lengkap ? "status ok" : "status wait";
+      }
+    }
+
+    function captureFotoKrani(){
+      fotoKraniDone = true;
+      fotoKraniAt = new Date().toISOString();
+      renderValidasiPanen();
+      alert("Foto Krani tersimpan. Foto ini jadi bukti validasi panen.");
+    }
+
+    function captureFotoBuah(){
+      fotoBuahDone = true;
+      fotoBuahAt = new Date().toISOString();
+      renderValidasiPanen();
+      alert("Foto Buah tersimpan. Foto ini jadi bukti validasi panen.");
+    }
+
+    function scanBarcodeKrani(){
+      if(!(fotoKraniDone && fotoBuahDone)){
+        alert("Validasi belum lengkap. Ambil Foto Krani dan Foto Buah terlebih dahulu.");
+        return;
+      }
+      if(offline){
+        queued += 1;
+        document.getElementById("queueCount").textContent = queued;
+        alert("Offline: barcode valid untuk krani panen. Pastikan Foto Krani & Foto Buah sudah diambil, lalu data masuk queue lokal untuk sync saat online.");
+        return;
+      }
+      alert("Online: data TPH muncul. Ambil Foto Krani & Foto Buah, input total janjang, lalu push ke SPB.");
+    }
+
+    function scanBarcodeTruk(){
+      if(offline){
+        alert("Offline: data barcode truk belum tersedia. Gunakan docket manual sementara sampai sync berhasil.");
+        return;
+      }
+      alert("Online: status TPH terupdate sebagai sudah diambil truk.");
+    }
+
+    function bossPrint(){
+      document.body.classList.add("boss-print");
+      window.print();
+    }
+
+    window.addEventListener("afterprint", () => {
+      document.body.classList.remove("boss-print");
+    });
+
+    renderValidasiPanen();
+  </script>
+</body>
 </html>
